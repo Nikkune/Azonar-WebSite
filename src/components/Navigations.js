@@ -68,17 +68,15 @@ const Navigations = ({type}) => {
     return (
         <nav className="sidebar close">
             <header>
-                <NavLink to="/" style={{textDecoration: "none"}}>
-                    <div className="image-text">
+                <div className="image-text">
                     <span className="image">
                         <img src="/logo.png" alt="Azonar"/>
                     </span>
 
-                        <div className="text header-text">
-                            <span className="name">Azonar</span>
-                        </div>
+                    <div className="text header-text">
+                        <span className="name">Azonar</span>
                     </div>
-                </NavLink>
+                </div>
 
                 <i className="fa-light fa-angle-right toggle" onClick={toggleSidebar}/>
             </header>
@@ -111,12 +109,6 @@ const Navigations = ({type}) => {
             </div>
         </nav>
     );
-    /*switch (type) {
-        case NAV_DEFAULT:
-        case NAV_LOGGED :
-        case NAV_ADMIN :
-        default :
-    }*/
 };
 
 export default Navigations;
