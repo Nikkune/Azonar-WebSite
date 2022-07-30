@@ -6,11 +6,13 @@ import {toast, ToastContainer} from "react-toastify";
 
 import axios from "axios";
 
+const emailRegEx = "/^(([^<>()[\\]\\\\.,;:\\s@]+(\\.[^<>()[\\]\\\\.,;:\\s@]+)*)|(.+))@((\\[\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})|(([a-zA-Z\\-\\d]+\\.)+[a-zA-Z]{2,}))$/";
+
 const sha1 = require('sha1');
 
 function errorToast(error) {
     toast.error(error, {
-        position: "top-right",
+        position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -51,7 +53,7 @@ const Auth = () => {
                 if (email !== "") {
                     if (password !== "") {
                         password = sha1(password);
-                        if (email.match(/^(([^<>()[\]\\.,;:\s@]+(\.[^<>()[\]\\.,;:\s@]+)*)|(.+))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+                        if (email.match(emailRegEx)) {
                             /*axios.post("https://api.azonar.fr/user/add", {}).then((res) => {
                             const id = res.data._id;
                             const password2 = res.data.password;
@@ -86,7 +88,7 @@ const Auth = () => {
             if (authInfo !== "") {
                 if (password !== "") {
                     password = sha1(password);
-                    if (authInfo.match(/^(([^<>()[\]\\.,;:\s@]+(\.[^<>()[\]\\.,;:\s@]+)*)|(.+))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+                    if (authInfo.match(emailRegEx)) {
 
                     } else {
 
@@ -128,7 +130,8 @@ const Auth = () => {
                                 <div className="overlay">
                                     <div className="overlay-panel overlay-left">
                                         <h1 className="title-form">Welcome Back!</h1>
-                                        <p className="text-form">To keep connected with us please login with your personal info</p>
+                                        <p className="text-form">To keep connected with us please login with your personal
+                                            info</p>
                                         <button className="form-btn ghost" id="signIn">Sign In</button>
                                     </div>
                                     <div className="overlay-panel overlay-right">
