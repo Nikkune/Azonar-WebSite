@@ -30,7 +30,7 @@
 }
 
 .link-form {
-  color: #333;
+  color: var(--text-color);
   font-size: 14px;
   text-decoration: none;
   margin: 15px 0;
@@ -40,7 +40,7 @@
   border-radius: 20px;
   border: 1px solid var(--secondary-color);
   background-color: var(--secondary-color);
-  color: white;
+  color: #FFFFFF;
   font-size: 12px;
   font-weight: bold;
   padding: 12px 45px;
@@ -59,11 +59,11 @@
 
 .form-btn.ghost {
   background-color: transparent;
-  border-color: white;
+  border-color: var(--text-color);
 }
 
 form.form-lr {
-  background-color: var(--quinary-color-light);
+  background-color: var(--sidebar-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -74,7 +74,7 @@ form.form-lr {
 }
 
 input.form-lr-input {
-  background-color: white;
+  background-color: var(--body-color);
   border: none;
   padding: 12px 15px;
   margin: 8px 0;
