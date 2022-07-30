@@ -1,0 +1,87 @@
+:root{
+  /* ===== Colors ===== */
+  --body-color: #eae9ed;
+  --sidebar-color: #ffffff;
+  --sidebar-color-light: #ebebed;
+  --primary-color: #2e294e;
+  --primary-color-light: #575371;
+  --primary-color-dark: #24203e;
+  --secondary-color: #d7263d;
+  --secondary-color-light: #e36777;
+  --secondary-color-dark: #961a2a;
+  --tertiary-color: #35605a;
+  --tertiary-color-light: #718f8b;
+  --tertiary-color-dark: #25433e;
+  --quaternary-color: #4b4d5a;
+  --quaternary-color-light: #81828b;
+  --quaternary-color-dark: #34353e;
+  --quinary-color: #bcbdc0;
+  --quinary-color-light: #ebebed;
+  --quinary-color-dark: #828486;
+  --text-color: #4d4d4d;
+  --toggle-color: #cccccc;
+
+  /* ====== Transition ====== */
+  --tran-02: all 0.2s ease;
+  --tran-03: all 0.3s ease;
+  --tran-04: all 0.4s ease;
+  --tran-05: all 0.5s ease;
+}
+
+*::-webkit-scrollbar {
+  width: 20px;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: var(--body-color);
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  border: 5px solid transparent;
+  background-clip: content-box;
+  background-color: var(--primary-color);
+}
+
+body {
+  font-family: Kanit, sans-serif;
+  background-color: var(--body-color);
+  margin: 0;
+}
+
+body.dark{
+  --body-color: #18191A;
+  --sidebar-color: #242526;
+  --sidebar-color-light: #353738;
+  --primary-color: #24203e;
+  --primary-color-light: #4f4c64;
+  --secondary-color: #961a2a;
+  --secondary-color-light: #ab4754;
+  --tertiary-color: #25433e;
+  --tertiary-color-light: #506864;
+  --quaternary-color: #34353e;
+  --quaternary-color-light: #5c5d64;
+  --quinary-color: #828486;
+  --quinary-color-light: #8e9092;
+  --text-color: #CCC;
+  --toggle-color: #FFF;
+}
+
+ul{
+  padding: 0;
+}
+
+.content-body {
+  padding: 1rem;
+}
+
+@font-face {
+  font-family: Kanit;
+  src: url(./fonts/Kanit-Regular.ttf);
+}
+
+@font-face {
+  font-family: Kanit-Bold;
+  src: url(./fonts/Kanit-Bold.ttf);
+  font-weight: bold;
+}
