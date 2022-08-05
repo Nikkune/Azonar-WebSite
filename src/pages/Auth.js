@@ -54,7 +54,7 @@ const Auth = () => {
                     if (password !== "") {
                         password = sha1(password);
                         if (email.match(emailRegEx)) {
-                            /*axios.post("https://api.azonar.fr/user/add", {}).then((res) => {
+                            /*axios.post("https://www.api.azonar.fr/user/add", {}).then((res) => {
                             const id = res.data._id;
                             const password2 = res.data.password;
                             const username1 = res.data.username;
@@ -107,7 +107,7 @@ const Auth = () => {
                 <div className="home">
                     <ToastContainer/>
                     <div className="form-body">
-                        <div className="container" id="container">
+                        <div className="container_form" id="container">
                             <div className="form-container sign-up-container">
                                 <form className="form-lr" onSubmit={handleSignUp} action="#">
                                     <h1 className="title-form">Create Account</h1>

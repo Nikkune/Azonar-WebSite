@@ -41,6 +41,7 @@
 body {
   font-family: Kanit, sans-serif;
   background-color: var(--body-color);
+  color: var(--text-color);
   margin: 0;
 }
 
@@ -60,6 +61,7 @@ body.dark{
   --quinary-color-light: #8e9092;
   --text-color: #CCC;
   --toggle-color: #FFF;
+  color: var(--text-color);
 }
 
 ul{

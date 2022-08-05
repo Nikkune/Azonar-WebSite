@@ -3,7 +3,7 @@ import {NavLink} from "react-router-dom";
 
 const NavigationsItem = ({to, name, icon}) => {
     return (
-        <li className="nav-link">
+        <li>
             <NavLink to={to}>
                 <i className={icon + " icon"}/>
                 <span className="text nav-text">{name}</span>

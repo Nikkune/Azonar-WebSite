@@ -9,12 +9,14 @@ import Lists from "./pages/Lists";
 import Dashboard from "./pages/Dashboard";
 import Bots from "./pages/Bots";
 import Catalog from "./pages/Catalog";
+import Loader from "./components/Loader";
 
 const App = () => {
     return (
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Home/>}/>
+                <Route path="/loader" element={<Loader/>}/>
                 <Route path="/catalog" element={<Catalog/>}/>
                 <Route path="/bots" element={<Bots/>}/>
                 <Route path="/dashboard" element={<Dashboard/>}/>

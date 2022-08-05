@@ -88,7 +88,7 @@ const Navigations = ({type}) => {
                 </div>
                 <div className="bottom-content">
                     <li className="">
-                        <NavLink to="/auth">
+                        <NavLink to="/auth" className="">
                             <i className="fa-duotone fa-right-to-bracket icon"/>
                             <span className="text nav-text">Logout</span>
                         </NavLink>
