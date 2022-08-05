@@ -4,8 +4,6 @@ import Navigations from "../components/Navigations";
 import {NAV_ADMIN} from "../enum/NavTypes";
 import {toast, ToastContainer} from "react-toastify";
 
-import axios from "axios";
-
 const emailRegEx = "/^(([^<>()[\\]\\\\.,;:\\s@]+(\\.[^<>()[\\]\\\\.,;:\\s@]+)*)|(.+))@((\\[\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})|(([a-zA-Z\\-\\d]+\\.)+[a-zA-Z]{2,}))$/";
 
 const sha1 = require('sha1');
@@ -131,7 +129,7 @@ const Auth = () => {
                                     <div className="overlay-panel overlay-left">
                                         <h1 className="title-form">Welcome Back!</h1>
                                         <p className="text-form">To keep connected with us please login with your personal
-                                            info</p>
+                                                                 info</p>
                                         <button className="form-btn ghost" id="signIn">Sign In</button>
                                     </div>
                                     <div className="overlay-panel overlay-right">

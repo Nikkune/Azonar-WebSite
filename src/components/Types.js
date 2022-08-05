@@ -2,7 +2,7 @@ import React from 'react';
 
 const Types = ({type_id}) => {
     let type_name = "Unknown";
-    switch (type_id){
+    switch (type_id) {
         case 1:
             type_name = "Manga"
             break;

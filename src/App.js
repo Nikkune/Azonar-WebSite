@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Error404 from "./pages/Error404";
@@ -9,14 +9,12 @@ import Lists from "./pages/Lists";
 import Dashboard from "./pages/Dashboard";
 import Bots from "./pages/Bots";
 import Catalog from "./pages/Catalog";
-import Loader from "./components/Loader";
 
 const App = () => {
     return (
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Home/>}/>
-                <Route path="/loader" element={<Loader/>}/>
                 <Route path="/catalog" element={<Catalog/>}/>
                 <Route path="/bots" element={<Bots/>}/>
                 <Route path="/dashboard" element={<Dashboard/>}/>

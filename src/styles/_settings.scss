@@ -1,4 +1,4 @@
-:root{
+:root {
   /* ===== Colors ===== */
   --body-color: #eae9ed;
   --sidebar-color: #ffffff;
@@ -45,7 +45,7 @@ body {
   margin: 0;
 }
 
-body.dark{
+body.dark {
   --body-color: #18191A;
   --sidebar-color: #242526;
   --sidebar-color-light: #353738;
@@ -64,7 +64,7 @@ body.dark{
   color: var(--text-color);
 }
 
-ul{
+ul {
   padding: 0;
 }
 

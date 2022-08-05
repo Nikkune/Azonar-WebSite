@@ -3,44 +3,53 @@
   display: grid;
   place-items: center;
 }
+
 svg.tea {
   --secondary: var(--primary-color);
 }
+
 svg.tea #teabag {
   transform-origin: top center;
   transform: rotate(3deg);
   animation: swing 2s infinite;
 }
+
 svg.tea #steamL {
   stroke-dasharray: 13;
   stroke-dashoffset: 13;
   animation: steamLarge 2s infinite;
 }
+
 svg.tea #steamR {
   stroke-dasharray: 9;
   stroke-dashoffset: 9;
   animation: steamSmall 2s infinite;
 }
+
 @-moz-keyframes swing {
   50% {
     transform: rotate(-3deg);
   }
 }
+
 @-webkit-keyframes swing {
   50% {
     transform: rotate(-3deg);
   }
 }
+
 @-o-keyframes swing {
   50% {
     transform: rotate(-3deg);
   }
 }
+
 @keyframes swing {
   50% {
     transform: rotate(-3deg);
   }
 }
+
 @-moz-keyframes steamLarge {
   0% {
     stroke-dashoffset: 13;
@@ -51,6 +60,7 @@ svg.tea #steamR {
     opacity: 0;
   }
 }
+
 @-webkit-keyframes steamLarge {
   0% {
     stroke-dashoffset: 13;
@@ -61,6 +71,7 @@ svg.tea #steamR {
     opacity: 0;
   }
 }
+
 @-o-keyframes steamLarge {
   0% {
     stroke-dashoffset: 13;
@@ -71,6 +82,7 @@ svg.tea #steamR {
     opacity: 0;
   }
 }
+
 @keyframes steamLarge {
   0% {
     stroke-dashoffset: 13;
@@ -81,6 +93,7 @@ svg.tea #steamR {
     opacity: 0;
   }
 }
+
 @-moz-keyframes steamSmall {
   10% {
     stroke-dashoffset: 9;
@@ -95,6 +108,7 @@ svg.tea #steamR {
     opacity: 0;
   }
 }
+
 @-webkit-keyframes steamSmall {
   10% {
     stroke-dashoffset: 9;
@@ -109,6 +123,7 @@ svg.tea #steamR {
     opacity: 0;
   }
 }
+
 @-o-keyframes steamSmall {
   10% {
     stroke-dashoffset: 9;
@@ -123,6 +138,7 @@ svg.tea #steamR {
     opacity: 0;
   }
 }
+
 @keyframes steamSmall {
   10% {
     stroke-dashoffset: 9;
