@@ -1,0 +1,9 @@
+.drawer{
+  height: 0;
+  overflow: hidden;
+  transition: var(--tran-05);
+}
+
+.drawer.active{
+  height: 500px;
+}

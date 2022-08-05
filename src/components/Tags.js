@@ -2,9 +2,9 @@ import React from 'react';
 
 const Tags = ({genres}) => {
     return (
-        <p className="tag tag-lg">
+        <a onClick={} className="tag tag-lg">
             {genres}
-        </p>
+        </a>
     );
 };
 
