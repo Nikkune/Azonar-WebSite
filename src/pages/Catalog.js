@@ -20,6 +20,7 @@ const Catalog = () => {
         let btnColor;
         let paginations;
         let arrowDir;
+        const genresEN = ["action", "alien", "friendship", "love", "art", "martial arts", "adventure", "camping", "fight", "comedy", "kitchen", "detective", "doujinshi", "drama", "ecchi", "fantasy", "fantastic", "gore", "harem", "historical", "horror", "isekai", "video game", "josei", "loli", "magic", "mature", "mecha", "medical", "mystery", "post-apocalyptic", "psychological", "reincarnation", "romance", "school", "seinen", "science fiction", "shojo", "shojo ai", "shonen", "shonen ai", "sport", "supernatural", "survival game", "thriller", "tragedy", "slice of life", "love triangle", "school life", "yaoi", "yuri", "zombie"];
 
         useEffect(() => {
             axios.get("https://www.api.azonar.fr/mangas").then((res) => {
@@ -249,20 +250,16 @@ const Catalog = () => {
                         <hr ref={shelves}/>
                         <h3><i className="fa-duotone fa-shelves"/> Etagere</h3>
                         <Row className="justify-content-center">
-                            <button className="btn btn-perso w-25" onClick={handelClickGenre}><i className="fa-duotone fa-filter"/> Genres <i className={"fa-duotone fa-chevron-" + chevronDir}/></button>
+                            <button className="btn btn-perso w-25 mb-3" onClick={handelClickGenre}>
+                                <i className="fa-duotone fa-filter"/> Genres <i className={"fa-duotone fa-chevron-" + chevronDir}/>
+                            </button>
                             <button id="btnNone" className="tag tag-lg d-none" onClick={handelNoneClick}>None</button>
                             <div id="genreDrawer" className="drawer">
-                                <button id="fantasy" className="tag tag-lg" onClick={handelGenresClick}>Fantasy</button>
-                                <button id="fantasy" className="tag tag-lg" onClick={handelGenresClick}>Fantasy</button>
-                                <button id="fantasy" className="tag tag-lg" onClick={handelGenresClick}>Fantasy</button>
-                                <button id="fantasy" className="tag tag-lg" onClick={handelGenresClick}>Fantasy</button>
-                                <button id="fantasy" className="tag tag-lg" onClick={handelGenresClick}>Fantasy</button>
-                                <button id="fantasy" className="tag tag-lg" onClick={handelGenresClick}>Fantasy</button>
-                                <button id="fantasy" className="tag tag-lg" onClick={handelGenresClick}>Fantasy</button>
-                                <button id="fantasy" className="tag tag-lg" onClick={handelGenresClick}>Fantasy</button>
-                                <button id="fantasy" className="tag tag-lg" onClick={handelGenresClick}>Fantasy</button>
-                                <button id="fantasy" className="tag tag-lg" onClick={handelGenresClick}>Fantasy</button>
-                                <button id="fantasy" className="tag tag-lg" onClick={handelGenresClick}>Fantasy</button>
+                                {
+                                    genresEN.map((genre, index) =>
+                                        <button key={"genre" + index} id={genre} className="tag tag-lg" onClick={handelGenresClick}>{genre.substring(0,1).toUpperCase() + genre.substring(1)}</button>
+                                    )
+                                }
                             </div>
                         </Row>
                         <Stack direction="horizontal" gap={3} className="mb-3">

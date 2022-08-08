@@ -21,7 +21,7 @@ const MangaCard = ({manga}) => {
                 }}>
                     <Row style={{height: 15 + "rem"}}>
                         <Col sm="6" className="align-content-center align-items-center d-flex">
-                            <Image fluid src="https://via.placeholder.com/300X400"/>
+                            <Image fluid src={manga.cover_link}/>
                         </Col>
                         <Col sm="6">
                             <div className="card-block">
