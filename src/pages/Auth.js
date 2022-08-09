@@ -1,10 +1,16 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavLink, useNavigate} from "react-router-dom";
 import Navigations from "../components/Navigations";
-import {NAV_ADMIN} from "../enum/NavTypes";
 import {toast, ToastContainer} from "react-toastify";
+import {creatUser, getUserViaEmail, getUserViaPseudonym} from "../Managers/M_Users";
+import {isLogged, setUser} from "../Managers/M_Sessions";
+import {getNavId} from "../Managers/M_Navigations";
 
-const emailRegEx = "/^(([^<>()[\\]\\\\.,;:\\s@]+(\\.[^<>()[\\]\\\\.,;:\\s@]+)*)|(.+))@((\\[\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})|(([a-zA-Z\\-\\d]+\\.)+[a-zA-Z]{2,}))$/";
+const validateEmail = (email) => {
+    return email.match(
+        /^(([^<>()[\]\\.,;:\s@]+(\.[^<>()[\]\\.,;:\s@]+)*)|(.+))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};
 
 const sha1 = require('sha1');
 
@@ -22,9 +28,10 @@ function errorToast(error) {
 
 const Auth = () => {
         const navigate = useNavigate();
+        const [navID, setNavID] = useState(1);
 
         useEffect(() => {
-            if (window.sessionStorage.getItem("isLogged") === "true") {
+            if (isLogged() === "true") {
                 navigate("/");
             }
 
@@ -39,6 +46,10 @@ const Auth = () => {
             signInButton.addEventListener('click', () => {
                 container.classList.remove("right-panel-active");
             });
+
+            getNavId().then((res) => {
+                setNavID(res)
+            })
         }, []);
 
         function handleSignUp(event) {
@@ -51,19 +62,11 @@ const Auth = () => {
                 if (email !== "") {
                     if (password !== "") {
                         password = sha1(password);
-                        if (email.match(emailRegEx)) {
-                            /*axios.post("https://www.api.azonar.fr/user/add", {}).then((res) => {
-                            const id = res.data._id;
-                            const password2 = res.data.password;
-                            const username1 = res.data.username;
-
-
-                            window.sessionStorage.setItem("isLogged", "true");
-                            window.sessionStorage.setItem("username", username1);
-                            window.sessionStorage.setItem("password", password2);
-                            window.sessionStorage.setItem("_id", id);
-                            navigate('/');
-                        });*/
+                        if (validateEmail(email)) {
+                            creatUser(pseudonym, email, password).then((res) => {
+                                console.log(res)
+                            });
+                            //TODO Send confirmation mail !
                         } else {
                             errorToast(email + " is not valid !");
                         }
@@ -78,7 +81,7 @@ const Auth = () => {
             }
         }
 
-        function handleSignIn(event) {
+        async function handleSignIn(event) {
             event.preventDefault(true);
             const authInfo = event.target[0].value;
             let password = event.target[1].value;
@@ -86,10 +89,30 @@ const Auth = () => {
             if (authInfo !== "") {
                 if (password !== "") {
                     password = sha1(password);
-                    if (authInfo.match(emailRegEx)) {
-
+                    if (validateEmail(authInfo)) {
+                        const userInDB = await getUserViaEmail(authInfo);
+                        if (!userInDB.isEmpty) {
+                            if (password === userInDB.password) {
+                                setUser(userInDB._id, userInDB.pseudonym, userInDB.password, userInDB.status);
+                                navigate("/");
+                            } else {
+                                errorToast("Wrong Password !")
+                            }
+                        } else {
+                            errorToast("User Doesn't Exist !")
+                        }
                     } else {
-
+                        const userInDB = await getUserViaPseudonym(authInfo);
+                        if (!userInDB.isEmpty) {
+                            if (password === userInDB.password) {
+                                setUser(userInDB._id, userInDB.pseudonym, userInDB.password, userInDB.status);
+                                navigate("/");
+                            } else {
+                                errorToast("Wrong Password !")
+                            }
+                        } else {
+                            errorToast("User Doesn't Exist !")
+                        }
                     }
                 } else {
                     errorToast("Empty Password !");
@@ -101,7 +124,7 @@ const Auth = () => {
 
         return (
             <div>
-                <Navigations type={NAV_ADMIN}/>
+                <Navigations type={navID}/>
                 <div className="home">
                     <ToastContainer/>
                     <div className="form-body">

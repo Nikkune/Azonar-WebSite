@@ -1,15 +1,20 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Navigations from "../components/Navigations";
-import {NAV_ADMIN} from "../enum/NavTypes";
 import Loader from "../components/Loader";
 import axios from "axios";
 import {Card, Col, Container, Row} from "react-bootstrap";
+import {getNavId} from "../Managers/M_Navigations";
 
 const Bots = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [bots, setBots] = useState([]);
+    const [navID, setNavID] = useState(1);
 
     useEffect(() => {
+        getNavId().then((res) => {
+            setNavID(res)
+        })
+
         axios.get("https://www.api.azonar.fr/bots").then((res) => {
             setBots(res.data);
             setIsLoading(false);
@@ -32,7 +37,7 @@ const Bots = () => {
 
     return (
         <div>
-            <Navigations type={NAV_ADMIN}/>
+            <Navigations type={navID}/>
             <div className="home">
                 <h1>Bots</h1>
                 <h1>In Progress</h1>

@@ -3,7 +3,7 @@ import Navigations from "../components/Navigations";
 import {getNavId} from "../Managers/M_Navigations";
 import Loader from "../components/Loader";
 
-const Dashboard = () => {
+const Manga = () => {
     const [navID, setNavID] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -22,10 +22,10 @@ const Dashboard = () => {
         <div>
             <Navigations type={navID}/>
             <div className="home">
-                <h1>Dashboard</h1>
+                <h1>Manga</h1>
             </div>
         </div>
     );
 };
 
-export default Dashboard;
+export default Manga;

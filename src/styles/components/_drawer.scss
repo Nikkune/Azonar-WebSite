@@ -1,9 +1,9 @@
-.drawer{
+.drawer {
   height: 0;
   overflow: scroll;
   transition: var(--tran-05);
 }
 
-.drawer.active{
+.drawer.active {
   height: 400px;
 }

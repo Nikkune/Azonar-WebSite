@@ -1,7 +1,8 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
-import {NAV_ADMIN, NAV_DEFAULT, NAV_LOGGED} from "../enum/NavTypes";
+import {NAV_ADMIN, NAV_DEFAULT, NAV_LOGGED} from "../Managers/M_Navigations";
 import NavigationsItem from "./NavigationsItem";
+import {isLogged} from "../Managers/M_Sessions";
 
 const Navigations = ({type}) => {
     function toggleBody() {
@@ -65,6 +66,25 @@ const Navigations = ({type}) => {
         }
     }
 
+    function getLogBTN() {
+        if (isLogged() === "true") {
+            return (
+                <NavLink to="/disconnect" className="">
+                    <i className="fa-duotone fa-right-from-bracket icon"/>
+                    <span className="text nav-text">Logout</span>
+                </NavLink>
+            )
+        } else {
+            return (
+                <NavLink to="/auth" className="">
+                    <i className="fa-duotone fa-right-to-bracket icon"/>
+                    <span className="text nav-text">Login / Sign in</span>
+                </NavLink>
+            )
+        }
+    }
+
+
     return (
         <nav className="sidebar close">
             <header>
@@ -88,10 +108,9 @@ const Navigations = ({type}) => {
                 </div>
                 <div className="bottom-content">
                     <li className="">
-                        <NavLink to="/auth" className="">
-                            <i className="fa-duotone fa-right-to-bracket icon"/>
-                            <span className="text nav-text">Logout</span>
-                        </NavLink>
+                        {
+                            getLogBTN()
+                        }
                     </li>
 
                     <li className="mode">

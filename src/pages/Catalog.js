@@ -1,10 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Navigations from "../components/Navigations";
-import {NAV_ADMIN} from "../enum/NavTypes";
 import Loader from "../components/Loader";
 import axios from "axios";
 import {Col, Container, Form, PageItem, Pagination, Row, Stack} from "react-bootstrap";
 import MangaCard from "../components/MangaCard";
+import {getNavId} from "../Managers/M_Navigations";
 
 const Catalog = () => {
         const [isLoading, setIsLoading] = useState(true);
@@ -15,6 +15,7 @@ const Catalog = () => {
         const [lastPage, setLastPage] = useState(1);
         const [targetPage, setTargetPage] = useState(1);
         const [chevronDir, setChevronDir] = useState("down");
+        const [navID, setNavID] = useState(1);
         const shelves = useRef(null)
 
         let btnColor;
@@ -23,6 +24,10 @@ const Catalog = () => {
         const genresEN = ["action", "alien", "friendship", "love", "art", "martial arts", "adventure", "camping", "fight", "comedy", "kitchen", "detective", "doujinshi", "drama", "ecchi", "fantasy", "fantastic", "gore", "harem", "historical", "horror", "isekai", "video game", "josei", "loli", "magic", "mature", "mecha", "medical", "mystery", "post-apocalyptic", "psychological", "reincarnation", "romance", "school", "seinen", "science fiction", "shojo", "shojo ai", "shonen", "shonen ai", "sport", "supernatural", "survival game", "thriller", "tragedy", "slice of life", "love triangle", "school life", "yaoi", "yuri", "zombie"];
 
         useEffect(() => {
+            getNavId().then((res) => {
+                setNavID(res)
+            })
+
             axios.get("https://www.api.azonar.fr/mangas").then((res) => {
                 setMangas(res.data);
                 setMangasFiltered(res.data);
@@ -236,7 +241,7 @@ const Catalog = () => {
 
         return (
             <div>
-                <Navigations type={NAV_ADMIN}/>
+                <Navigations type={navID}/>
                 <div className="home">
                     <h1>Catalog</h1>
                     <Container className="text-center">
@@ -257,7 +262,7 @@ const Catalog = () => {
                             <div id="genreDrawer" className="drawer">
                                 {
                                     genresEN.map((genre, index) =>
-                                        <button key={"genre" + index} id={genre} className="tag tag-lg" onClick={handelGenresClick}>{genre.substring(0,1).toUpperCase() + genre.substring(1)}</button>
+                                        <button key={"genre" + index} id={genre} className="tag tag-lg" onClick={handelGenresClick}>{genre.substring(0, 1).toUpperCase() + genre.substring(1)}</button>
                                     )
                                 }
                             </div>
