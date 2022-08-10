@@ -2,6 +2,10 @@ import React, {useEffect, useState} from 'react';
 import Navigations from "../components/Navigations";
 import {getNavId} from "../Managers/M_Navigations";
 import Loader from "../components/Loader";
+import Widget from "../components/Widget";
+import Featured from "../components/Featured";
+import Chart from "../components/Chart";
+import LTable from "../components/LTable";
 
 const Dashboard = () => {
     const [navID, setNavID] = useState(1);
@@ -9,7 +13,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         getNavId().then((res) => {
-            setNavID(res)
+            setNavID(res);
             setIsLoading(false);
         })
     })
@@ -22,7 +26,20 @@ const Dashboard = () => {
         <div>
             <Navigations type={navID}/>
             <div className="home">
-                <h1>Dashboard</h1>
+                <div className="widgets">
+                    <Widget type="user"/>
+                    <Widget type="order"/>
+                    <Widget type="earning"/>
+                    <Widget type="balance"/>
+                </div>
+                <div className="charts">
+                    <Featured/>
+                    <Chart/>
+                </div>
+                <div className="l-container shadow">
+                    <div className="l-title">Latest Transactions</div>
+                    <LTable/>
+                </div>
             </div>
         </div>
     );

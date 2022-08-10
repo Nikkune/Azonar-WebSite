@@ -4,6 +4,7 @@ import Loader from "../components/Loader";
 import axios from "axios";
 import {Card, Col, Container, Row} from "react-bootstrap";
 import {getNavId} from "../Managers/M_Navigations";
+import BotCard from "../components/BotCard";
 
 const Bots = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -45,30 +46,7 @@ const Bots = () => {
                     <Row xs={1}>
                         {
                             bots.filter((bot) => bot.status === 1).map((bot) =>
-                                <Col key={bot._id} className="mb-3">
-                                    <Card style={{background: bot.color}}>
-                                        <div className="card-statistic-3 p-4">
-                                            <div className="card-icon card-icon-large"><i className={bot.icon}></i>
-                                            </div>
-                                            <div className="mb-4">
-                                                <h5 className="card-title mb-0">{bot.name}</h5>
-                                            </div>
-                                            <Row className="align-items-center mb-2 d-flex">
-                                                <Col xs={4}>
-                                                    <h2 className="d-flex align-items-center mb-0">
-                                                        {bot.progress + "%"}
-                                                    </h2>
-                                                </Col>
-                                                <Col xs={8} className="text-right">
-                                                    <span>{bot.description}</span>
-                                                </Col>
-                                            </Row>
-                                            <div className="progress mt-1 " data-height="8" style={{height: 8 + "px"}}>
-                                                <div className="progress-bar" role="progressbar" data-width={bot.progress + "%"} aria-valuenow={bot.progress} aria-valuemin="0" aria-valuemax="100" style={{width: bot.progress + "%"}}/>
-                                            </div>
-                                        </div>
-                                    </Card>
-                                </Col>
+                                <BotCard key={"bots " + bot._id} id={bot._id} name={bot.name} icon={bot.icon} color={bot.color} progress={bot.progress} desc={bot.description}/>
                             )
                         }
                     </Row>
@@ -78,30 +56,7 @@ const Bots = () => {
                     <Row xs={1}>
                         {
                             bots.filter((bot) => bot.status === 0).map((bot) =>
-                                <Col key={bot._id} className="mb-3">
-                                    <Card style={{background: bot.color}}>
-                                        <div className="card-statistic-3 p-4">
-                                            <div className="card-icon card-icon-large"><i className={bot.icon}></i>
-                                            </div>
-                                            <div className="mb-4">
-                                                <h5 className="card-title mb-0">{bot.name}</h5>
-                                            </div>
-                                            <Row className="align-items-center mb-2 d-flex">
-                                                <Col xs={4}>
-                                                    <h2 className="d-flex align-items-center mb-0">
-                                                        {bot.progress + "%"}
-                                                    </h2>
-                                                </Col>
-                                                <Col xs={8} className="text-right">
-                                                    <span>{bot.description}</span>
-                                                </Col>
-                                            </Row>
-                                            <div className="progress mt-1 " data-height="8" style={{height: 8 + "px"}}>
-                                                <div className="progress-bar" role="progressbar" data-width={bot.progress + "%"} aria-valuenow={bot.progress} aria-valuemin="0" aria-valuemax="100" style={{width: bot.progress + "%"}}/>
-                                            </div>
-                                        </div>
-                                    </Card>
-                                </Col>
+                                <BotCard key={"bots " + bot._id} id={bot._id} name={bot.name} icon={bot.icon} color={bot.color} progress={bot.progress} desc={bot.description}/>
                             )
                         }
                     </Row>

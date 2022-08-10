@@ -2,7 +2,7 @@ import React from 'react';
 import {NavLink} from "react-router-dom";
 import {NAV_ADMIN, NAV_DEFAULT, NAV_LOGGED} from "../Managers/M_Navigations";
 import NavigationsItem from "./NavigationsItem";
-import {isLogged} from "../Managers/M_Sessions";
+import {getPseudonym, isLogged} from "../Managers/M_Sessions";
 
 const Navigations = ({type}) => {
     function toggleBody() {
@@ -37,8 +37,8 @@ const Navigations = ({type}) => {
                         <NavigationsItem to="/" icon="fa-duotone fa-house" name="Home"/>
                         <NavigationsItem to="/catalog" icon="fa-duotone fa-books" name="Catalogue"/>
                         <NavigationsItem to="/bots" icon="fa-duotone fa-user-robot" name="Bots"/>
-                        <NavigationsItem to="/list" icon="fa-duotone fa-rectangle-list" name="My List"/>
-                        <NavigationsItem to="/new" icon="fa-duotone fa-file-circle-plus" name="New Chapters"/>
+                        <NavigationsItem to={"/list/" + getPseudonym()} icon="fa-duotone fa-rectangle-list" name="My List"/>
+                        <NavigationsItem to={"/new/" + getPseudonym()} icon="fa-duotone fa-file-circle-plus" name="New Chapters"/>
                         <NavigationsItem to="/about" icon="fa-duotone fa-info" name="About"/>
                     </ul>
                 )
@@ -49,8 +49,8 @@ const Navigations = ({type}) => {
                         <NavigationsItem to="/dashboard" icon="fa-duotone fa-gears" name="Dashboard"/>
                         <NavigationsItem to="/catalog" icon="fa-duotone fa-books" name="Catalogue"/>
                         <NavigationsItem to="/bots" icon="fa-duotone fa-user-robot" name="Bots"/>
-                        <NavigationsItem to="/list" icon="fa-duotone fa-rectangle-list" name="My List"/>
-                        <NavigationsItem to="/new" icon="fa-duotone fa-file-circle-plus" name="New Chapters"/>
+                        <NavigationsItem to={"/list/" + getPseudonym()} icon="fa-duotone fa-rectangle-list" name="My List"/>
+                        <NavigationsItem to={"/new/" + getPseudonym()} icon="fa-duotone fa-file-circle-plus" name="New Chapters"/>
                         <NavigationsItem to="/about" icon="fa-duotone fa-info" name="About"/>
                     </ul>
                 )
