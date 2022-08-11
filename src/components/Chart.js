@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {Container, Row, Spinner} from "react-bootstrap";
-import Loader from "./Loader";
 import BotCard from "./BotCard";
 import {getBots} from "../Managers/M_Bots";
 

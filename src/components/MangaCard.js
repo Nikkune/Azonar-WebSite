@@ -36,7 +36,8 @@ const MangaCard = ({manga}) => {
                                 <Card.Title>{name}</Card.Title>
                                 <p>Last Update : {date}</p>
                                 {
-                                    btns.map((btn) => <Button key={btn.toLowerCase().split(" ").join("")} className="w-100" onClick={handleQuickAdd} variant="outline-secondary" >{btn}</Button>)
+                                    btns.map((btn) =>
+                                        <Button key={btn.toLowerCase().split(" ").join("")} className="w-100" onClick={handleQuickAdd} variant="outline-secondary">{btn}</Button>)
                                 }
                             </div>
                         </Col>

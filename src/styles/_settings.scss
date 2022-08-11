@@ -16,9 +16,9 @@
   --text-color: #4d4d4d;
   --invert-text-color: #FFF;
   --toggle-color: #cccccc;
-  --shadow-color : rgba(0, 0, 0, 0.15);
-  --shadow-color-lg : rgba(0, 0, 0, 0.175);
-  --shadow-color-sm : rgba(0, 0, 0, 0.075);
+  --shadow-color: rgba(0, 0, 0, 0.15);
+  --shadow-color-lg: rgba(0, 0, 0, 0.175);
+  --shadow-color-sm: rgba(0, 0, 0, 0.075);
 
   /* ====== Transition ====== */
   --tran-02: all 0.2s ease;
@@ -66,9 +66,9 @@ body.dark {
   --text-color: #CCC;
   --invert-text-color: #4d4d4d;
   --toggle-color: #FFF;
-  --shadow-color : rgba(255, 255, 255, 0.15);
-  --shadow-color-lg : rgba(255, 255, 255, 0.175);
-  --shadow-color-sm : rgba(255, 255, 255, 0.075);
+  --shadow-color: rgba(255, 255, 255, 0.15);
+  --shadow-color-lg: rgba(255, 255, 255, 0.175);
+  --shadow-color-sm: rgba(255, 255, 255, 0.075);
   color: var(--text-color);
 }
 

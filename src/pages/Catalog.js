@@ -210,63 +210,63 @@ const Catalog = () => {
             ];
         }
 
-    if (lastPage > 5) {
-        switch (page) {
-            case 1:
-                paginations = [
-                    {nbr: 1, active: true, disable: false},
-                    {nbr: 2, active: false, disable: false},
-                    {nbr: 3, active: false, disable: false},
-                    {nbr: 4, active: false, disable: false},
-                    {nbr: 5, active: false, disable: false}
-                ];
-                break;
-            case 2:
-                paginations = [
-                    {nbr: 1, active: false, disable: false},
-                    {nbr: 2, active: true, disable: false},
-                    {nbr: 3, active: false, disable: false},
-                    {nbr: 4, active: false, disable: false},
-                    {nbr: 5, active: false, disable: false}
-                ];
-                break;
-            case lastPage:
-                paginations = [
-                    {nbr: lastPage - 4, active: false, disable: false},
-                    {nbr: lastPage - 3, active: false, disable: false},
-                    {nbr: lastPage - 2, active: false, disable: false},
-                    {nbr: lastPage - 1, active: false, disable: false},
-                    {nbr: lastPage, active: true, disable: false}
-                ];
-                break;
-            case lastPage - 1:
-                paginations = [
-                    {nbr: lastPage - 4, active: false, disable: false},
-                    {nbr: lastPage - 3, active: false, disable: false},
-                    {nbr: lastPage - 2, active: false, disable: false},
-                    {nbr: lastPage - 1, active: true, disable: false},
-                    {nbr: lastPage, active: false, disable: false}
-                ];
-                break;
-            default:
-                paginations = [
-                    {nbr: page - 2, active: false, disable: false},
-                    {nbr: page - 1, active: false, disable: false},
-                    {nbr: page, active: true, disable: false},
-                    {nbr: parseInt(page) + 1, active: false, disable: false},
-                    {nbr: parseInt(page) + 2, active: false, disable: false}
-                ];
-                break;
+        if (lastPage > 5) {
+            switch (page) {
+                case 1:
+                    paginations = [
+                        {nbr: 1, active: true, disable: false},
+                        {nbr: 2, active: false, disable: false},
+                        {nbr: 3, active: false, disable: false},
+                        {nbr: 4, active: false, disable: false},
+                        {nbr: 5, active: false, disable: false}
+                    ];
+                    break;
+                case 2:
+                    paginations = [
+                        {nbr: 1, active: false, disable: false},
+                        {nbr: 2, active: true, disable: false},
+                        {nbr: 3, active: false, disable: false},
+                        {nbr: 4, active: false, disable: false},
+                        {nbr: 5, active: false, disable: false}
+                    ];
+                    break;
+                case lastPage:
+                    paginations = [
+                        {nbr: lastPage - 4, active: false, disable: false},
+                        {nbr: lastPage - 3, active: false, disable: false},
+                        {nbr: lastPage - 2, active: false, disable: false},
+                        {nbr: lastPage - 1, active: false, disable: false},
+                        {nbr: lastPage, active: true, disable: false}
+                    ];
+                    break;
+                case lastPage - 1:
+                    paginations = [
+                        {nbr: lastPage - 4, active: false, disable: false},
+                        {nbr: lastPage - 3, active: false, disable: false},
+                        {nbr: lastPage - 2, active: false, disable: false},
+                        {nbr: lastPage - 1, active: true, disable: false},
+                        {nbr: lastPage, active: false, disable: false}
+                    ];
+                    break;
+                default:
+                    paginations = [
+                        {nbr: page - 2, active: false, disable: false},
+                        {nbr: page - 1, active: false, disable: false},
+                        {nbr: page, active: true, disable: false},
+                        {nbr: parseInt(page) + 1, active: false, disable: false},
+                        {nbr: parseInt(page) + 2, active: false, disable: false}
+                    ];
+                    break;
+            }
+        } else {
+            paginations = [
+                {nbr: 1, active: true, disable: false},
+                {nbr: 2, active: false, disable: true},
+                {nbr: 3, active: false, disable: true},
+                {nbr: 4, active: false, disable: true},
+                {nbr: 5, active: false, disable: true}
+            ];
         }
-    } else {
-        paginations = [
-            {nbr: 1, active: true, disable: false},
-            {nbr: 2, active: false, disable: true},
-            {nbr: 3, active: false, disable: true},
-            {nbr: 4, active: false, disable: true},
-            {nbr: 5, active: false, disable: true}
-        ];
-    }
 
         if (isLoading) {
             return <Loader/>

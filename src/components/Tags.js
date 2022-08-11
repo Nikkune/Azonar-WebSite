@@ -4,6 +4,7 @@ const Tags = ({genres, size}) => {
     let classList = "tag";
     if (size !== undefined)
         classList = "tag " + size
+
     function capitalize(text) {
         const words = text.split(" ");
         let result = []

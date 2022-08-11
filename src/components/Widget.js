@@ -26,7 +26,7 @@ const Widget = ({type}) => {
             setMangaAmount(res);
             setIsLoading(false);
         })
-    },[])
+    }, [])
 
     switch (type) {
         case "user":
