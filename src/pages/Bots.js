@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import Navigations from "../components/Navigations";
 import Loader from "../components/Loader";
-import axios from "axios";
-import {Card, Col, Container, Row} from "react-bootstrap";
+import {Container, Row} from "react-bootstrap";
 import {getNavId} from "../Managers/M_Navigations";
 import BotCard from "../components/BotCard";
+import {getBots} from "../Managers/M_Bots";
 
 const Bots = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -16,18 +16,14 @@ const Bots = () => {
             setNavID(res)
         })
 
-        axios.get("https://www.api.azonar.fr/bots").then((res) => {
-            setBots(res.data);
+        getBots().then((res) => {
+            setBots(res);
             setIsLoading(false);
-        }).catch((err) => {
-            console.log(err);
         })
 
         setInterval(() => {
-            axios.get("https://www.api.azonar.fr/bots").then((res) => {
-                setBots(res.data);
-            }).catch((err) => {
-                console.log(err);
+            getBots().then((res) => {
+                setBots(res);
             })
         }, 1000 * 10)
     }, [])

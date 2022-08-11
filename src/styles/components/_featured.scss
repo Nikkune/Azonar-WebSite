@@ -1,21 +1,21 @@
-.featured{
+.featured {
   flex: 2;
   padding: 10px;
 }
 
-.f-top{
+.f-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
   color: var(--text-color);
 
-  .f-title{
+  .f-title {
     font-size: 16px;
     font-weight: 500;
   }
 }
 
-.f-bottom{
+.f-bottom {
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -23,51 +23,52 @@
   justify-content: center;
   gap: 15px;
 
-  .f-progress{
+  .f-progress {
     width: 100px;
     height: 100px;
   }
 
-  .f-title{
+  .f-title {
     font-weight: 500;
     color: var(--text-color);
   }
 
-  .f-amount{
+  .f-amount {
     font-size: 30px;
   }
 
-  .f-desc{
+  .f-desc {
     font-weight: 300;
     font-size: 12px;
     color: var(--text-color);
     text-align: center;
   }
 
-  .f-summary{
+  .f-summary {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    .f-item{
+    .f-item {
       text-align: center;
 
-      .i-title{
+      .i-title {
         font-size: 14px;
         color: var(--text-color);
       }
 
-      .i-result{
+      .i-result {
         display: flex;
         align-items: center;
         margin-top: 10px;
         font-size: 14px;
 
-        &.i-positive{
+        &.i-positive {
           color: var(--bs-success);
         }
-        &.i-negative{
+
+        &.i-negative {
           color: var(--bs-danger);
         }
       }

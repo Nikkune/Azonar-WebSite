@@ -61,6 +61,14 @@ export async function updateStatus(pseudonym, status) {
     return response;
 }
 
+export async function usersCount() {
+    let user;
+    await axios.get("https://www.api.azonar.fr/users").then((res) => {
+        user = res.data
+    })
+    return user.length;
+}
+
 export async function deleteUser(pseudonym) {
     let response;
     const userId = getUserViaPseudonym(pseudonym)._id;

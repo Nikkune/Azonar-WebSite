@@ -1,26 +1,73 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {usersCount} from "../Managers/M_Users";
+import {botsCount} from "../Managers/M_Bots";
+import {mangasCount} from "../Managers/M_Mangas";
+import {Spinner} from "react-bootstrap";
 
 const Widget = ({type}) => {
-    let data;
+    const [isLoading, setIsLoading] = useState(true);
+    const [usersAmount, setUsersAmount] = useState(1);
+    const [botsAmount, setBotsAmount] = useState(1);
+    const [mangasAmount, setMangaAmount] = useState(1);
 
-    const amount = 300
-    const percentage = 300
+    let data;
+    let amount;
+
+    useEffect(() => {
+        usersCount().then((res) => {
+            setUsersAmount(res);
+            setIsLoading(false);
+        })
+        botsCount().then((res) => {
+            setBotsAmount(res);
+            setIsLoading(false);
+        })
+        mangasCount().then((res) => {
+            setMangaAmount(res);
+            setIsLoading(false);
+        })
+    },[])
 
     switch (type) {
         case "user":
-            data = {title: "Users", isMoney: false, link:"See all users", icon: "fa-user", colorBG: "#ffa0a0", color: "#950000"}
+            data = {
+                title: "Users",
+                isMoney: false,
+                link: "See all users",
+                icon: "fa-user",
+                colorBG: "#ffa0a0",
+                color: "#950000"
+            }
+            amount = usersAmount;
             break
-        case "order":
-            data = {title: "Orders", isMoney: false, link:"See all orders", icon: "fa-cart-shopping", colorBG: "#ffe9a0", color: "#957c00"}
+        case "bot":
+            data = {
+                title: "Bots",
+                isMoney: false,
+                link: "See all bots",
+                icon: "fa-robot",
+                colorBG: "#ffe9a0",
+                color: "#957c00"
+            }
+            amount = botsAmount;
             break
-        case "earning":
-            data = {title: "Earnings", isMoney: true, link:"See net earnings", icon: "fa-circle-dollar", colorBG: "#b1ffa0", color: "#009507"}
-            break
-        case "balance":
-            data = {title: "Users", isMoney: true, link:"See details", icon: "fa-scale-balanced", colorBG: "#f9a0ff", color: "#7a0095"}
+        case "manga":
+            data = {
+                title: "Mangas",
+                isMoney: false,
+                link: "See all mangas",
+                icon: "fa-books",
+                colorBG: "#b1ffa0",
+                color: "#009507"
+            }
+            amount = mangasAmount;
             break
         default:
             break
+    }
+
+    if (isLoading) {
+        return <Spinner animation="border" variant="primary"/>
     }
 
     return (
@@ -31,12 +78,10 @@ const Widget = ({type}) => {
                 <span className="w-link">{data.link}</span>
             </div>
             <div className="w-right">
-                <div className="w-percentage w-positive">
-                    <i className="fa-duotone fa-angle-up"/>
-                    {percentage}
-                    <i className="fa-duotone fa-percent"/>
-                </div>
-                <i className={"fa-duotone " + data.icon + " w-icon"} style={{backgroundColor: data.colorBG, color: data.color}}/>
+                <i className={"fa-duotone " + data.icon + " w-icon"} style={{
+                    backgroundColor: data.colorBG,
+                    color: data.color
+                }}/>
             </div>
         </div>
     );

@@ -1,10 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Navigations from "../components/Navigations";
 import Loader from "../components/Loader";
-import axios from "axios";
 import {Col, Container, Form, PageItem, Pagination, Row, Stack} from "react-bootstrap";
 import MangaCard from "../components/MangaCard";
 import {getNavId} from "../Managers/M_Navigations";
+import {getMangas} from "../Managers/M_Mangas";
 
 const Catalog = () => {
         const [isLoading, setIsLoading] = useState(true);
@@ -15,6 +15,7 @@ const Catalog = () => {
         const [lastPage, setLastPage] = useState(1);
         const [targetPage, setTargetPage] = useState(1);
         const [chevronDir, setChevronDir] = useState("down");
+        const [search, setSearch] = useState("");
         const [navID, setNavID] = useState(1);
         const shelves = useRef(null)
 
@@ -28,17 +29,15 @@ const Catalog = () => {
                 setNavID(res)
             })
 
-            axios.get("https://www.api.azonar.fr/mangas").then((res) => {
-                setMangas(res.data);
-                setMangasFiltered(res.data);
-                setLastPage(Math.ceil(res.data.length / 12));
+            getMangas().then((res) => {
+                setMangas(res);
+                setMangasFiltered(res);
+                setLastPage(Math.ceil(res.length / 12));
                 setIsLoading(false);
-            }).catch((err) => {
-                console.log(err);
             })
         }, [])
 
-        function nextPage() {
+        function nextPage(lastPage = 200) {
             if (page !== lastPage)
                 setPage(page + 1);
             shelves.current.scrollIntoView();
@@ -99,7 +98,7 @@ const Catalog = () => {
                     if (btnNone.classList.contains("d-none"))
                         btnNone.classList.remove("d-none");
                     let filteredMangas = []
-                    for (const manga of mangas) {
+                    for (const manga of mangasFiltered) {
                         if (manga.genres.includes(filterName))
                             filteredMangas.push(manga)
                     }
@@ -109,15 +108,13 @@ const Catalog = () => {
                 } else {
                     if (!btnNone.classList.contains("d-none"))
                         btnNone.classList.add("d-none");
-                    setMangasFiltered(mangas)
-                    setLastPage(Math.ceil(mangas.length / 12));
+                    updateSearch(search);
                     setIsLoading(false)
                 }
             } else {
                 if (!btnNone.classList.contains("d-none"))
                     btnNone.classList.add("d-none");
-                setMangasFiltered(mangas)
-                setLastPage(Math.ceil(mangas.length / 12));
+                updateSearch(search);
                 setIsLoading(false)
             }
         }
@@ -174,7 +171,46 @@ const Catalog = () => {
             arrowDir = "down"
         }
 
+        function updateSearch(searchTerm) {
+            setSearch(searchTerm);
+            let filteredManga = [];
+            for (const manga of mangas) {
+                if (manga.name.toLowerCase().startsWith(searchTerm))
+                    filteredManga.push(manga)
+            }
+            setMangasFiltered(filteredManga);
+            setLastPage(Math.ceil(filteredManga.length / 12));
+        }
 
+        function handleSearch(event) {
+            const searchTerm = event.target.value;
+            const btnNone = document.getElementById("btnNone");
+            if (!btnNone.classList.contains("d-none"))
+                btnNone.classList.add("d-none");
+            setSearch(searchTerm);
+            let filteredManga = [];
+            for (const manga of mangas) {
+                if (manga.name.toLowerCase().startsWith(searchTerm))
+                    filteredManga.push(manga)
+            }
+            setMangasFiltered(filteredManga);
+            setLastPage(Math.ceil(filteredManga.length / 12));
+        }
+
+
+        if (sorter.includes("name")) {
+            btnColor = [
+                {icon: "fa-hourglass-clock", text: " Dernières Mise À Jour", id: "last", active: ""},
+                {icon: "fa-arrow-" + arrowDir + "-a-z", text: " Nom", id: "name", active: "active"}
+            ];
+        } else if (sorter.includes("last")) {
+            btnColor = [
+                {icon: "fa-hourglass-clock", text: " Dernières Mise À Jour", id: "last", active: "active"},
+                {icon: "fa-arrow-" + arrowDir + "-a-z", text: " Nom", id: "name", active: ""}
+            ];
+        }
+
+    if (lastPage > 5) {
         switch (page) {
             case 1:
                 paginations = [
@@ -222,18 +258,15 @@ const Catalog = () => {
                 ];
                 break;
         }
-
-        if (sorter.includes("name")) {
-            btnColor = [
-                {icon: "fa-hourglass-clock", text: " Dernières Mise À Jour", id: "last", active: ""},
-                {icon: "fa-arrow-" + arrowDir + "-a-z", text: " Nom", id: "name", active: "active"}
-            ];
-        } else if (sorter.includes("last")) {
-            btnColor = [
-                {icon: "fa-hourglass-clock", text: " Dernières Mise À Jour", id: "last", active: "active"},
-                {icon: "fa-arrow-" + arrowDir + "-a-z", text: " Nom", id: "name", active: ""}
-            ];
-        }
+    } else {
+        paginations = [
+            {nbr: 1, active: true, disable: false},
+            {nbr: 2, active: false, disable: true},
+            {nbr: 3, active: false, disable: true},
+            {nbr: 4, active: false, disable: true},
+            {nbr: 5, active: false, disable: true}
+        ];
+    }
 
         if (isLoading) {
             return <Loader/>
@@ -254,6 +287,10 @@ const Catalog = () => {
                         </Row>
                         <hr ref={shelves}/>
                         <h3><i className="fa-duotone fa-shelves"/> Etagere</h3>
+                        <Form.Group className="mb-3" controlId="searchForm">
+                            <Form.Label>Search</Form.Label>
+                            <Form.Control type="text" onChange={handleSearch} value={search} placeholder="Search..."/>
+                        </Form.Group>
                         <Row className="justify-content-center">
                             <button className="btn btn-perso w-25 mb-3" onClick={handelClickGenre}>
                                 <i className="fa-duotone fa-filter"/> Genres <i className={"fa-duotone fa-chevron-" + chevronDir}/>
@@ -268,7 +305,8 @@ const Catalog = () => {
                             </div>
                         </Row>
                         <Stack direction="horizontal" gap={3} className="mb-3">
-                            <div><i className="fa-duotone fa-hashtag"/> {mangasFiltered.length} Mangas</div>
+                            <div><i className="fa-duotone fa-hashtag"/> {mangasFiltered.length} Mangas
+                            </div>
                             <div className="ms-auto">
                                 <span><i className="fa-duotone fa-arrow-down-arrow-up"/> Trier Par :</span>
                             </div>
@@ -302,7 +340,7 @@ const Catalog = () => {
                                             <PageItem key={"pagination-" + index} onClick={setNewPage} active={pageItem.active} disabled={pageItem.disable}>{pageItem.nbr}</PageItem>)
                                     }
                                     <Pagination.Ellipsis/>
-                                    <PageItem onClick={setNewPage}>{lastPage}</PageItem>
+                                    <PageItem onClick={setNewPage}>{Math.ceil(mangasFiltered.length / 12) !== 0 ? Math.ceil(mangasFiltered.length / 12) : 1}</PageItem>
                                     <Pagination.Next onClick={nextPage}/>
                                 </Pagination>
                             </Col>
@@ -312,7 +350,7 @@ const Catalog = () => {
                                         backgroundColor: "var(--sidebar-color)",
                                         borderColor: "var(--sidebar-color-light)",
                                         color: "var(--text-color)"
-                                    }} type="number" max={lastPage} min={1} onChange={handelChange}/>
+                                    }} type="number" max={Math.ceil(mangasFiltered.length / 12) !== 0 ? Math.ceil(mangasFiltered.length / 12) : 1} min={1} onChange={handelChange}/>
                                     <button className="btn btn-perso" onClick={handelSubmit}>Jump</button>
                                 </Form>
                             </Col>

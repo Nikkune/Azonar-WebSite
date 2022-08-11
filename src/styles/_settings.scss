@@ -14,7 +14,11 @@
   --quinary-color: #bcbdc0;
   --quinary-color-light: #ebebed;
   --text-color: #4d4d4d;
+  --invert-text-color: #FFF;
   --toggle-color: #cccccc;
+  --shadow-color : rgba(0, 0, 0, 0.15);
+  --shadow-color-lg : rgba(0, 0, 0, 0.175);
+  --shadow-color-sm : rgba(0, 0, 0, 0.075);
 
   /* ====== Transition ====== */
   --tran-02: all 0.2s ease;
@@ -60,7 +64,11 @@ body.dark {
   --quinary-color: #828486;
   --quinary-color-light: #8e9092;
   --text-color: #CCC;
+  --invert-text-color: #4d4d4d;
   --toggle-color: #FFF;
+  --shadow-color : rgba(255, 255, 255, 0.15);
+  --shadow-color-lg : rgba(255, 255, 255, 0.175);
+  --shadow-color-sm : rgba(255, 255, 255, 0.075);
   color: var(--text-color);
 }
 
@@ -70,6 +78,18 @@ ul {
 
 .content-body {
   padding: 1rem;
+}
+
+.shadow {
+  box-shadow: 0 0.5rem 1rem var(--shadow-color) !important;
+}
+
+.shadow-sm {
+  box-shadow: 0 0.125rem 0.25rem var(--shadow-color-sm) !important;
+}
+
+.shadow-lg {
+  box-shadow: 0 1rem 3rem var(--shadow-color-lg) !important;
 }
 
 @font-face {

@@ -1,6 +1,7 @@
 import React from 'react';
-import {Card, Col, Image, Row} from "react-bootstrap";
+import {Button, Card, Col, Image, Row} from "react-bootstrap";
 import {NavLink} from "react-router-dom";
+import {isLogged} from "../Managers/M_Sessions";
 
 const MangaCard = ({manga}) => {
     let name = manga.name
@@ -12,21 +13,31 @@ const MangaCard = ({manga}) => {
         year: "numeric"
     }).format(new Date(manga.last_update));
 
+    let btns = [];
+    if (isLogged())
+        btns = ["Quick Add"]
+
+    function handleQuickAdd(event) {
+        event.preventDefault(true);
+    }
+
     return (
         <Col>
             <NavLink to={"/manga/" + manga._id} style={{textDecoration: "none", color: "var(--text-color)"}}>
                 <Card className="float-right mb-3" style={{
-                    height: 15 + "rem",
                     backgroundColor: "var(--sidebar-color)"
                 }}>
-                    <Row style={{height: 15 + "rem"}}>
+                    <Row>
                         <Col sm="6" className="align-content-center align-items-center d-flex">
-                            <Image fluid srcSet={manga.cover_link} alt={manga.name} style={{maxHeight: 14 + "rem"}}/>
+                            <Image fluid className="rounded rounded-3 m-auto" srcSet={manga.cover_link} alt={manga.name} style={{height: 14 + "rem"}}/>
                         </Col>
                         <Col sm="6">
                             <div className="card-block">
                                 <Card.Title>{name}</Card.Title>
                                 <p>Last Update : {date}</p>
+                                {
+                                    btns.map((btn) => <Button key={btn.toLowerCase().split(" ").join("")} className="w-100" onClick={handleQuickAdd} variant="outline-secondary" >{btn}</Button>)
+                                }
                             </div>
                         </Col>
                     </Row>

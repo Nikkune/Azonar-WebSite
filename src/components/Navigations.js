@@ -119,7 +119,7 @@ const Navigations = ({type}) => {
                             <i className="fa-duotone fa-sun-bright icon sun"/>
                         </div>
                         <span className="mode-text text">Dark Mode</span>
-                        <div className="toggle-switch" onClick={toggleBody}>
+                        <div className="toggle-switch" id="btn-dark-mode" onClick={toggleBody}>
                             <span className="switch">
                             </span>
                         </div>
