@@ -3,7 +3,7 @@ import {Button, Card, Col, Form, Image, Modal, Row, Spinner} from "react-bootstr
 import {NavLink} from "react-router-dom";
 import {getID, isLogged} from "../Managers/M_Sessions";
 import {toast, ToastContainer} from "react-toastify";
-import {addMangaToUserList, getMangaIDListOfUserList, getUserList} from "../Managers/M_List";
+import {addMangaToUserList, getMangaIDListOfUserList} from "../Managers/M_List";
 
 const MangaCard = ({manga}) => {
     const [show, setShow] = useState(false);
@@ -25,7 +25,7 @@ const MangaCard = ({manga}) => {
         year: "numeric"
     }).format(new Date(manga.last_update));
 
-    if (isLogged() === "true"){
+    if (isLogged() === "true") {
         getMangaIDListOfUserList(getID()).then((mga) => {
             setMangaInList(mga);
             setIsLoading(false);
@@ -68,7 +68,7 @@ const MangaCard = ({manga}) => {
 
     function handleSubmit(event) {
         event.preventDefault(true);
-        if (isNumeric(currentChapter)){
+        if (isNumeric(currentChapter)) {
             addMangaToUserList(getID(), manga._id, currentChapter, statusID).then((res) => {
                 handleClose();
                 successToast("Successfully add : " + res.manga_name + " to your list !");
@@ -76,7 +76,7 @@ const MangaCard = ({manga}) => {
                 handleClose();
                 errorToast("An Error as occurred : " + err);
             });
-        }else{
+        } else {
             errorToast(currentChapter + " isn't a number ! Example : 8 OR 8.1");
         }
     }
@@ -102,7 +102,8 @@ const MangaCard = ({manga}) => {
                                 <p>Last Update : {date}</p>
                                 {
                                     isLoading ? <Spinner animation="border" variant="primary"/> : btns.map((btn) =>
-                                        <Button key={btn.toLowerCase().split(" ").join("")} className="w-100" onClick={handleQuickAdd} variant="outline-secondary"><i className="fa-duotone fa-circle-plus"/> {btn}</Button>)
+                                        <Button key={btn.toLowerCase().split(" ").join("")} className="w-100" onClick={handleQuickAdd} variant="outline-secondary"><i className="fa-duotone fa-circle-plus"/> {btn}
+                                        </Button>)
                                 }
                             </div>
                         </Col>
@@ -140,7 +141,9 @@ const MangaCard = ({manga}) => {
                                 Current Chapter :
                             </Col>
                             <Col>
-                                <Form.Control size="sm" type="text" onChange={event => {setCurrentChapter(event.target.value)}}/>
+                                <Form.Control size="sm" type="text" onChange={event => {
+                                    setCurrentChapter(event.target.value)
+                                }}/>
                             </Col>
                         </Row>
                     </Form>

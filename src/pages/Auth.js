@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {NavLink, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import Navigations from "../components/Navigations";
 import {toast, ToastContainer} from "react-toastify";
 import {creatUser, getUserViaEmail, getUserViaPseudonym} from "../Managers/M_Users";

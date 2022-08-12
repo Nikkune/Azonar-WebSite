@@ -31,7 +31,7 @@ const Home = () => {
             <Navigations type={navID}/>
             <div className="home">
                 <h1>Home</h1>
-                <Container  className="rounded rounded-3 p-3 shadow text-center mb-3" style={{
+                <Container className="rounded rounded-3 p-3 shadow text-center mb-3" style={{
                     color: "var(--text-color)",
                     backgroundColor: "var(--sidebar-color-light)"
                 }}>

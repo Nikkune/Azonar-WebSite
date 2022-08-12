@@ -5,7 +5,17 @@ import {deleteMangaFromUserList, updateChapter, updateStatus} from "../Managers/
 import {getID} from "../Managers/M_Sessions";
 import {NavLink} from "react-router-dom";
 
-const ULTableRow = ({list_id, manga_id, current, status, manga_name, last_update, current_chapter_link, reload ,news}) => {
+const ULTableRow = ({
+                        list_id,
+                        manga_id,
+                        current,
+                        status,
+                        manga_name,
+                        last_update,
+                        current_chapter_link,
+                        reload,
+                        news
+                    }) => {
     if (news === undefined)
         news = false;
 
@@ -84,9 +94,9 @@ const ULTableRow = ({list_id, manga_id, current, status, manga_name, last_update
         }
     }
 
-    let btns = [];
+    let btns;
 
-    if (!news){
+    if (!news) {
         btns = [
             {
                 text: "Edit",
@@ -101,7 +111,7 @@ const ULTableRow = ({list_id, manga_id, current, status, manga_name, last_update
                 href: null
             }
         ]
-    }else{
+    } else {
         btns = [
             {
                 text: "Continuer",
@@ -114,12 +124,16 @@ const ULTableRow = ({list_id, manga_id, current, status, manga_name, last_update
 
     return (
         <tr>
-            <td><NavLink to={"/manga/" + manga_id} className="text-decoration-none" style={{color: "var(--text-color)"}}>{manga_name}</NavLink></td>
+            <td>
+                <NavLink to={"/manga/" + manga_id} className="text-decoration-none" style={{color: "var(--text-color)"}}>{manga_name}</NavLink>
+            </td>
             <td>{current}</td>
             <td>{date}</td>
             <td>
                 {
-                    btns.map((btn) => <Button variant="perso" className="me-3" onClick={btn.action !== null ? btn.action : null} href={btn.href !== null ? btn.href : "#"} target={btn.href !== null ? "_blank" : "_self"}><i className={"fa-duotone fa-" + btn.icon}/> {btn.text}</Button> )
+                    btns.map((btn) =>
+                        <Button variant="perso" className="me-3" onClick={btn.action !== null ? btn.action : null} href={btn.href !== null ? btn.href : "#"} target={btn.href !== null ? "_blank" : "_self"}><i className={"fa-duotone fa-" + btn.icon}/> {btn.text}
+                        </Button>)
                 }
                 <Modal
                     show={show}

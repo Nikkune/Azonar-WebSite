@@ -4,7 +4,7 @@ import {getNavId} from "../Managers/M_Navigations";
 import Loader from "../components/Loader";
 import {getMangaViaID} from "../Managers/M_Mangas";
 import {useNavigate} from "react-router-dom";
-import {Button, Col, Container, Form, Image, Modal, Row, Spinner} from "react-bootstrap";
+import {Button, Col, Container, Form, Image, Modal, Row} from "react-bootstrap";
 import Tags from "../components/Tags";
 import Error404 from "./Error404";
 import {getID, isLogged} from "../Managers/M_Sessions";
@@ -42,7 +42,7 @@ const Manga = () => {
             setHasFailed(true)
         });
 
-        if (isLogged() === "true"){
+        if (isLogged() === "true") {
             getMangaIDListOfUserList(getID()).then((mga) => {
                 setMangaInList(mga);
                 setIsLoading(false);
@@ -102,7 +102,7 @@ const Manga = () => {
 
     function handleSubmit(event) {
         event.preventDefault(true);
-        if (isNumeric(currentChapter)){
+        if (isNumeric(currentChapter)) {
             addMangaToUserList(getID(), manga._id, currentChapter, statusID).then((res) => {
                 handleClose();
                 successToast("Successfully add : " + res.manga_name + " to your list !");
@@ -110,7 +110,7 @@ const Manga = () => {
                 handleClose();
                 errorToast("An Error as occurred : " + err);
             });
-        }else{
+        } else {
             errorToast(currentChapter + " isn't a number ! Example : 8 OR 8.1");
         }
     }
@@ -167,7 +167,9 @@ const Manga = () => {
                             <a href={manga.site_link} rel="noreferrer" className="btn btn-outline-secondary w-50" target="_blank">Read This Manga !</a>
                             <br/>
                             {
-                                btns.map((btn) =><Button key={btn.toLowerCase().split(" ").join("")} className="w-50 mt-3" onClick={handleQuickAdd} variant="outline-secondary"><i className="fa-duotone fa-circle-plus"/> {btn}</Button>)
+                                btns.map((btn) =>
+                                    <Button key={btn.toLowerCase().split(" ").join("")} className="w-50 mt-3" onClick={handleQuickAdd} variant="outline-secondary"><i className="fa-duotone fa-circle-plus"/> {btn}
+                                    </Button>)
                             }
                         </Container>
                     </Row>
@@ -204,7 +206,9 @@ const Manga = () => {
                                 Current Chapter :
                             </Col>
                             <Col>
-                                <Form.Control size="sm" type="text" onChange={event => {setCurrentChapter(event.target.value)}}/>
+                                <Form.Control size="sm" type="text" onChange={event => {
+                                    setCurrentChapter(event.target.value)
+                                }}/>
                             </Col>
                         </Row>
                     </Form>
