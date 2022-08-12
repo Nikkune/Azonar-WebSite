@@ -253,8 +253,8 @@ const Catalog = () => {
                         {nbr: page - 2, active: false, disable: false},
                         {nbr: page - 1, active: false, disable: false},
                         {nbr: page, active: true, disable: false},
-                        {nbr: parseInt(page) + 1, active: false, disable: false},
-                        {nbr: parseInt(page) + 2, active: false, disable: false}
+                        {nbr: parseInt(page.toString()) + 1, active: false, disable: false},
+                        {nbr: parseInt(page.toString()) + 2, active: false, disable: false}
                     ];
                     break;
             }

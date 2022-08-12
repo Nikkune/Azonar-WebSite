@@ -1,3 +1,5 @@
+// noinspection ES6CheckImport
+
 import React from 'react';
 import {useNavigate} from "react-router-dom";
 import {Form} from "react-bootstrap";
@@ -25,7 +27,7 @@ const ResetPassWord = () => {
                     const password2 = sha1(event.target[1].value);
 
                     if (password === password2) {
-                        updatePassword(res.pseudonym, password).then((res) => {
+                        updatePassword(res.pseudonym, password).then(() => {
                             navigate("/auth");
                         })
                     } else {

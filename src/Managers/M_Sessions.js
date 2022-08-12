@@ -36,12 +36,11 @@ export async function getUserInDB(pseudonym) {
     return user;
 }
 
-export function setUser(id, pseudonym, password, status) {
+export function setUser(id, pseudonym, password) {
     setIsLogged(true);
     setID(id);
     setPseudonyme(pseudonym);
     setPassword(password);
-    setStatus(status);
 }
 
 export function deleteUser() {
@@ -62,10 +61,6 @@ export function getPseudonym() {
 
 export function getPassword() {
     return window.sessionStorage.getItem("password");
-}
-
-export function getStatus() {
-    return window.sessionStorage.getItem("status");
 }
 
 export function setID(id) {

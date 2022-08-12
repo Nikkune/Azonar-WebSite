@@ -1,3 +1,5 @@
+// noinspection ES6CheckImport
+
 import React, {useEffect, useState} from 'react';
 import Navigations from "../components/Navigations";
 import {getNavId} from "../Managers/M_Navigations";
@@ -37,11 +39,11 @@ const Lists = () => {
                 getUserViaPseudonym(pseudonym).then((usr) => {
                     getUserList(usr._id).then((res) => {
                         setUserList(res);
-                    }).catch((err) => {
+                    }).catch(() => {
                         setIsLoading(false);
                         setHasFailed(true)
                     });
-                }).catch((err) => {
+                }).catch(() => {
                     setIsLoading(false);
                     setHasFailed(true)
                 });
@@ -50,11 +52,11 @@ const Lists = () => {
             getUserViaPseudonym(pseudonym).then((usr) => {
                 getUserList(usr._id).then((res) => {
                     setUserList(res);
-                }).catch((err) => {
+                }).catch(() => {
                     setIsLoading(false);
                     setHasFailed(true)
                 });
-            }).catch((err) => {
+            }).catch(() => {
                 setIsLoading(false);
                 setHasFailed(true)
             });
@@ -111,11 +113,11 @@ const Lists = () => {
                 getUserViaPseudonym(pseudonym).then((usr) => {
                     getUserList(usr._id).then((res) => {
                         setUserList(res);
-                    }).catch((err) => {
+                    }).catch(() => {
                         setIsLoading(false);
                         setHasFailed(true)
                     });
-                }).catch((err) => {
+                }).catch(() => {
                     setIsLoading(false);
                     setHasFailed(true)
                 });
@@ -124,11 +126,11 @@ const Lists = () => {
             getUserViaPseudonym(pseudonym).then((usr) => {
                 getUserList(usr._id).then((res) => {
                     setUserList(res);
-                }).catch((err) => {
+                }).catch(() => {
                     setIsLoading(false);
                     setHasFailed(true)
                 });
-            }).catch((err) => {
+            }).catch(() => {
                 setIsLoading(false);
                 setHasFailed(true)
             });

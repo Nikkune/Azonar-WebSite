@@ -1,3 +1,5 @@
+// noinspection ES6CheckImport
+
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import Navigations from "../components/Navigations";
@@ -93,7 +95,7 @@ const Auth = () => {
                         const userInDB = await getUserViaEmail(authInfo);
                         if (!userInDB.isEmpty) {
                             if (password === userInDB.password) {
-                                setUser(userInDB._id, userInDB.pseudonym, userInDB.password, userInDB.status);
+                                setUser(userInDB._id, userInDB.pseudonym, userInDB.password);
                                 navigate("/");
                             } else {
                                 errorToast("Wrong Password !")
@@ -105,7 +107,7 @@ const Auth = () => {
                         const userInDB = await getUserViaPseudonym(authInfo);
                         if (!userInDB.isEmpty) {
                             if (password === userInDB.password) {
-                                setUser(userInDB._id, userInDB.pseudonym, userInDB.password, userInDB.status);
+                                setUser(userInDB._id, userInDB.pseudonym, userInDB.password);
                                 navigate("/");
                             } else {
                                 errorToast("Wrong Password !")

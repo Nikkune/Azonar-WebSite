@@ -1,3 +1,5 @@
+// noinspection ES6CheckImport
+
 import React, {useEffect, useState} from 'react';
 import Navigations from "../components/Navigations";
 import {getNavId} from "../Managers/M_Navigations";
@@ -37,7 +39,7 @@ const Manga = () => {
         getMangaViaID(ID).then((res) => {
             setManga(res);
             setIsLoading(false);
-        }).catch((err) => {
+        }).catch(() => {
             setIsLoading(false);
             setHasFailed(true)
         });

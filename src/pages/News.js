@@ -1,3 +1,5 @@
+// noinspection ES6CheckImport
+
 import React, {useEffect, useState} from 'react';
 import Navigations from "../components/Navigations";
 import {getNavId} from "../Managers/M_Navigations";
