@@ -143,7 +143,7 @@ const Auth = () => {
                                     <h1 className="title-form">Sign in</h1>
                                     <input className="form-lr-input" type="text" placeholder="Pseudonym Or Email"/>
                                     <input className="form-lr-input" type="password" placeholder="Password"/>
-                                    <NavLink className="link-form" to="#">Forgot your password?</NavLink>
+                                    <a className="link-form" href="#">Forgot your password?</a>
                                     <button className="form-btn">Sign In</button>
                                 </form>
                             </div>

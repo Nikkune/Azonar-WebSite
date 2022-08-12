@@ -1,9 +1,21 @@
-import React from 'react';
-import {Button, Card, Col, Image, Row} from "react-bootstrap";
+import React, {useState} from 'react';
+import {Button, Card, Col, Form, Image, Modal, Row, Spinner} from "react-bootstrap";
 import {NavLink} from "react-router-dom";
-import {isLogged} from "../Managers/M_Sessions";
+import {getID, isLogged} from "../Managers/M_Sessions";
+import {toast, ToastContainer} from "react-toastify";
+import {addMangaToUserList, getMangaIDListOfUserList, getUserList} from "../Managers/M_List";
 
 const MangaCard = ({manga}) => {
+    const [show, setShow] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+
+    const [statusID, setStatusID] = useState(0);
+    const [currentChapter, setCurrentChapter] = useState("");
+    const [mangaInList, setMangaInList] = useState([]);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     let name = manga.name
     if (manga.name.length >= 30)
         name = manga.name.substring(0, 30) + " ..."
@@ -13,12 +25,65 @@ const MangaCard = ({manga}) => {
         year: "numeric"
     }).format(new Date(manga.last_update));
 
+    if (isLogged() === "true"){
+        getMangaIDListOfUserList(getID()).then((mga) => {
+            setMangaInList(mga);
+            setIsLoading(false);
+        })
+    }
+
     let btns = [];
-    if (isLogged())
-        btns = ["Quick Add"]
+    if (isLogged() === "true" && !mangaInList.includes(manga._id))
+        btns = ["Add To List"]
+
+    function isNumeric(str) {
+        if (typeof str != "string") return false
+        return !isNaN(str) &&
+            !isNaN(parseFloat(str))
+    }
+
+    function errorToast(error) {
+        toast.error(error, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    }
+
+    function successToast(msg) {
+        toast.success(msg, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    }
+
+    function handleSubmit(event) {
+        event.preventDefault(true);
+        if (isNumeric(currentChapter)){
+            addMangaToUserList(getID(), manga._id, currentChapter, statusID).then((res) => {
+                handleClose();
+                successToast("Successfully add : " + res.manga_name + " to your list !");
+            }).catch((err) => {
+                handleClose();
+                errorToast("An Error as occurred : " + err);
+            });
+        }else{
+            errorToast(currentChapter + " isn't a number ! Example : 8 OR 8.1");
+        }
+    }
 
     function handleQuickAdd(event) {
         event.preventDefault(true);
+        handleShow()
     }
 
     return (
@@ -36,14 +101,58 @@ const MangaCard = ({manga}) => {
                                 <Card.Title>{name}</Card.Title>
                                 <p>Last Update : {date}</p>
                                 {
-                                    btns.map((btn) =>
-                                        <Button key={btn.toLowerCase().split(" ").join("")} className="w-100" onClick={handleQuickAdd} variant="outline-secondary">{btn}</Button>)
+                                    isLoading ? <Spinner animation="border" variant="primary"/> : btns.map((btn) =>
+                                        <Button key={btn.toLowerCase().split(" ").join("")} className="w-100" onClick={handleQuickAdd} variant="outline-secondary"><i className="fa-duotone fa-circle-plus"/> {btn}</Button>)
                                 }
                             </div>
                         </Col>
                     </Row>
                 </Card>
             </NavLink>
+            <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>{manga.name}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={event => event.preventDefault()}>
+                        <Row className="d-flex flex-row mb-3">
+                            <Col>
+                                Status :
+                            </Col>
+                            <Col>
+                                <Form.Select size="sm" aria-label="Status" onChange={event => setStatusID(parseInt(event.target.value))}>
+                                    <option value={0}>Reading</option>
+                                    <option value={1}>Competed</option>
+                                    <option value={2}>On-Hold</option>
+                                    <option value={3}>Dropped</option>
+                                    <option value={4}>Plan To Read</option>
+                                </Form.Select>
+                            </Col>
+                        </Row>
+
+                        <Row className="d-flex flex-row mb-3">
+                            <Col>
+                                Current Chapter :
+                            </Col>
+                            <Col>
+                                <Form.Control size="sm" type="text" onChange={event => {setCurrentChapter(event.target.value)}}/>
+                            </Col>
+                        </Row>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button onClick={handleSubmit} variant="primary">Add</Button>
+                </Modal.Footer>
+            </Modal>
+            <ToastContainer/>
         </Col>
     );
 };

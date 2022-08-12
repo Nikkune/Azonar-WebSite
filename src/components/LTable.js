@@ -1,17 +1,25 @@
 import React, {useEffect, useState} from 'react';
 import {Spinner, Table} from "react-bootstrap";
 import LTableRow from "./LTableRow";
-import {getMangas} from "../Managers/M_Mangas";
+import {getLastMangas} from "../Managers/M_Mangas";
 
 const LTable = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [mangas, setMangas] = useState([]);
 
     useEffect(() => {
-        getMangas().then((res) => {
+        getLastMangas().then((res) => {
             setMangas(res);
             setIsLoading(false);
         })
+
+        setInterval(() => {
+            setIsLoading(true);
+            getLastMangas().then((res) => {
+                setMangas(res);
+                setIsLoading(false);
+            })
+        }, 1000 * 10)
     }, [])
 
     if (isLoading) {
@@ -19,7 +27,7 @@ const LTable = () => {
     }
 
     return (
-        <Table striped bordered variant="dark">
+        <Table striped bordered variant="perso">
             <thead>
             <tr>
                 <th>Manga ID</th>

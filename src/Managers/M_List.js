@@ -9,6 +9,14 @@ export async function getUserList(user_id) {
     return list;
 }
 
+export async function getMangaIDListOfUserList(user_id) {
+    let list;
+    await axios.get("https://www.api.azonar.fr/lists/mangaID/" + user_id).then((res) => {
+        list = res.data;
+    })
+    return list;
+}
+
 export async function addMangaToUserList(user_id, manga_id, current_chapter, status_id) {
     let results;
     let current_link;
@@ -79,11 +87,9 @@ export async function updateStatus(user_id, manga_id, status_id) {
     return list;
 }
 
-export async function deleteMangaFromUserList(user_id, manga_id) {
+export async function deleteMangaFromUserList(list_id) {
     let results;
-    let manga = await getMangaViaID(manga_id);
-    const encoded = user_id + "!?!" + manga._id
-    await axios.delete("https://www.api.azonar.fr/lists/" + encoded).then((res) => {
+    await axios.delete("https://www.api.azonar.fr/lists/" + list_id).then((res) => {
         results = res.data;
     })
     return results;

@@ -8,9 +8,17 @@ export async function getMangas() {
     return mangas;
 }
 
+export async function getLastMangas() {
+    let mangas;
+    await axios.get("https://www.api.azonar.fr/mangas/last").then((res) => {
+        mangas = res.data
+    })
+    return mangas;
+}
+
 export async function getMangaViaID(ID) {
     let manga;
-    await axios.get("https://www.api.azonar.fr/mangas/" + ID).then((res) => {
+    await axios.get("https://www.api.azonar.fr/mangas/viaID/" + ID).then((res) => {
         manga = res.data
     })
     return manga;

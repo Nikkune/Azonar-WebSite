@@ -268,6 +268,9 @@ const Catalog = () => {
             ];
         }
 
+        if (page > lastPage)
+            setPage(lastPage);
+
         if (isLoading) {
             return <Loader/>
         }
@@ -295,11 +298,13 @@ const Catalog = () => {
                             <button className="btn btn-perso w-25 mb-3" onClick={handelClickGenre}>
                                 <i className="fa-duotone fa-filter"/> Genres <i className={"fa-duotone fa-chevron-" + chevronDir}/>
                             </button>
-                            <button id="btnNone" className="tag tag-lg d-none" onClick={handelNoneClick}>None</button>
+                            <button id="btnNone" className="btn btn-perso mb-2 d-none" onClick={handelNoneClick}>None</button>
                             <div id="genreDrawer" className="drawer">
                                 {
                                     genresEN.map((genre, index) =>
-                                        <button key={"genre" + index} id={genre} className="tag tag-lg" onClick={handelGenresClick}>{genre.substring(0, 1).toUpperCase() + genre.substring(1)}</button>
+                                        <button key={"genre" + index} className="btn btn-perso m-1" id={genre} onClick={handelGenresClick}>
+                                            {genre}
+                                        </button>
                                     )
                                 }
                             </div>

@@ -11,6 +11,8 @@ import Bots from "./pages/Bots";
 import Catalog from "./pages/Catalog";
 import Manga from "./pages/Manga";
 import Disconnect from "./pages/Disconnect";
+import Forget from "./pages/Forget";
+import ResetPassWord from "./pages/ResetPassWord";
 
 const App = () => {
     return (
@@ -23,9 +25,11 @@ const App = () => {
                 <Route path="/about" element={<About/>}/>
                 <Route path="/auth" element={<Auth/>}/>
                 <Route path="/disconnect" element={<Disconnect/>}/>
+                <Route path="/forget" element={<Forget/>}/>
                 <Route path="/manga/*" element={<Manga/>}/>
                 <Route path="/list/*" element={<Lists/>}/>
                 <Route path="/new/*" element={<News/>}/>
+                <Route path="/rpw/*" element={<ResetPassWord/>}/>
                 <Route path="*" element={<Error404/>}/>
             </Routes>
         </BrowserRouter>

@@ -1,0 +1,14 @@
+.table-perso{
+  --bs-table-color: var(--text-color);
+  --bs-table-bg: var(--sidebar-color-light);
+  --bs-table-border-color: var(--sidebar-color-light);
+  --bs-table-striped-bg: var(--table-color);
+  --bs-table-striped-color: var(--text-color);
+  --bs-table-active-bg: var(--sidebar-color-light);
+  --bs-table-active-color: var(--text-color);
+  --bs-table-hover-bg: var(--quinary-color);
+  --bs-table-hover-color: #FFF;
+  color: var(--bs-table-color);
+  border-color: var(--bs-table-border-color);
+  transition: var(--tran-05);
+}
