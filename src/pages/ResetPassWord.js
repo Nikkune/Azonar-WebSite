@@ -1,18 +1,27 @@
 // noinspection ES6CheckImport
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import {Form} from "react-bootstrap";
+import {Button, Form} from "react-bootstrap";
 import {getUserViaPseudonym, updatePassword} from "../Managers/M_Users";
 import {toast, ToastContainer} from "react-toastify";
+import Navigations from "../components/Navigations";
+import {getNavId} from "../Managers/M_Navigations";
 
 const sha1 = require('sha1');
 
 const ResetPassWord = () => {
     const navigate = useNavigate();
+    const [navID, setNavID] = useState(1);
     const ID = window.location.href.split("/")[4];
     const Token = window.location.href.split("/")[5];
     const Pseudo = window.location.href.split("/")[6];
+
+    useEffect(() => {
+        getNavId().then((res) => {
+            setNavID(res)
+        })
+    }, [])
 
     if (ID === "" || Token === "" || Pseudo === "")
         navigate("/")
@@ -27,8 +36,11 @@ const ResetPassWord = () => {
                     const password2 = sha1(event.target[1].value);
 
                     if (password === password2) {
-                        updatePassword(res.pseudonym, password).then(() => {
-                            navigate("/auth");
+                        updatePassword(Pseudo, password).then(() => {
+                            toast.success("Successfully Update PassWord");
+                            setTimeout(() => {
+                                navigate("/auth");
+                            }, 5000)
                         })
                     } else {
                         errorToast("Password are not the same !");
@@ -56,17 +68,24 @@ const ResetPassWord = () => {
 
     return (
         <div>
-            <ToastContainer/>
-            <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password"/>
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicPassword2">
-                    <Form.Label>Confirm Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password"/>
-                </Form.Group>
-            </Form>
+            <Navigations type={navID}/>
+            <div className="home">
+                <ToastContainer/>
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" placeholder="Password"/>
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicPassword2">
+                        <Form.Label>Confirm Password</Form.Label>
+                        <Form.Control type="password" placeholder="Password"/>
+                    </Form.Group>
+
+                    <Button variant="primary" type="submit">
+                        Submit
+                    </Button>
+                </Form>
+            </div>
         </div>
     );
 };

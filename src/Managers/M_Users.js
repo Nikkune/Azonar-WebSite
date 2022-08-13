@@ -30,7 +30,7 @@ export async function getUserViaPseudonym(pseudonym) {
 
 export async function updateEmail(pseudonym, email) {
     let response;
-    const userId = getUserViaPseudonym(pseudonym)._id;
+    const userId = await getUserViaPseudonym(pseudonym)._id;
     await axios.put("https://www.api.azonar.fr/users/" + userId, {
         email: email
     }).then((res) => {
@@ -41,18 +41,19 @@ export async function updateEmail(pseudonym, email) {
 
 export async function updatePassword(pseudonym, password) {
     let response;
-    const userId = getUserViaPseudonym(pseudonym)._id;
-    await axios.put("https://www.api.azonar.fr/users/" + userId, {
-        password: password
-    }).then((res) => {
-        response = res.data
-    })
+    const userId = await getUserViaPseudonym(pseudonym).then((res) => {
+        axios.put("https://www.api.azonar.fr/users/" + res._id, {
+            password: password
+        }).then((res) => {
+            response = res.data
+        })
+    });
     return response;
 }
 
 export async function updateStatus(pseudonym, status) {
     let response;
-    const userId = getUserViaPseudonym(pseudonym)._id;
+    const userId = await getUserViaPseudonym(pseudonym)._id;
     await axios.put("https://www.api.azonar.fr/users/" + userId, {
         status: status
     }).then((res) => {
@@ -71,7 +72,7 @@ export async function usersCount() {
 
 export async function deleteUser(pseudonym) {
     let response;
-    const userId = getUserViaPseudonym(pseudonym)._id;
+    const userId = await getUserViaPseudonym(pseudonym)._id;
     await axios.delete("https://www.api.azonar.fr/users/" + userId).then((res) => {
         response = res.data
     })

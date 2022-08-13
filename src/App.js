@@ -15,6 +15,7 @@ import Manga from "./pages/Manga";
 import Disconnect from "./pages/Disconnect";
 import Forget from "./pages/Forget";
 import ResetPassWord from "./pages/ResetPassWord";
+import Validate from "./pages/Validate";
 
 const App = () => {
     return (
@@ -31,6 +32,7 @@ const App = () => {
                 <Route path="/manga/*" element={<Manga/>}/>
                 <Route path="/list/*" element={<Lists/>}/>
                 <Route path="/new/*" element={<News/>}/>
+                <Route path="/validate/*" element={<Validate/>}/>
                 <Route path="/rpw/*" element={<ResetPassWord/>}/>
                 <Route path="*" element={<Error404/>}/>
             </Routes>

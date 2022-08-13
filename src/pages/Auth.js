@@ -1,12 +1,13 @@
 // noinspection ES6CheckImport
 
 import React, {useEffect, useState} from 'react';
-import {useNavigate} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import Navigations from "../components/Navigations";
 import {toast, ToastContainer} from "react-toastify";
 import {creatUser, getUserViaEmail, getUserViaPseudonym} from "../Managers/M_Users";
 import {isLogged, setUser} from "../Managers/M_Sessions";
 import {getNavId} from "../Managers/M_Navigations";
+import emailjs from '@emailjs/browser';
 
 const validateEmail = (email) => {
     return email.match(
@@ -66,9 +67,28 @@ const Auth = () => {
                         password = sha1(password);
                         if (validateEmail(email)) {
                             creatUser(pseudonym, email, password).then((res) => {
-                                console.log(res)
+                                emailjs.send('service_fssxtol', 'template_9fwwbgl', {
+                                    to_name: res.pseudonym,
+                                    link: "https://azonar.fr/validate/"+ res.token +"/" + res.pseudonym,
+                                    user_email: res.email,
+                                }, 'r6FdVXupbGUorznSl')
+                                    .then((result) => {
+                                        toast.success("Success create User, Please Verify Your To Sing In ! " + result.text , {
+                                            position: "top-center",
+                                            autoClose: 5000,
+                                            hideProgressBar: false,
+                                            closeOnClick: true,
+                                            pauseOnHover: true,
+                                            draggable: true,
+                                            progress: undefined,
+                                        });
+                                        setTimeout(() => {
+                                            navigate("/");
+                                        }, 5000)
+                                    }, (error) => {
+                                        errorToast(error.text);
+                                    });
                             });
-                            //TODO Send confirmation mail !
                         } else {
                             errorToast(email + " is not valid !");
                         }
@@ -95,8 +115,12 @@ const Auth = () => {
                         const userInDB = await getUserViaEmail(authInfo);
                         if (!userInDB.isEmpty) {
                             if (password === userInDB.password) {
-                                setUser(userInDB._id, userInDB.pseudonym, userInDB.password);
-                                navigate("/");
+                                if (userInDB.status_id !== 0){
+                                    setUser(userInDB._id, userInDB.pseudonym, userInDB.password);
+                                    navigate("/");
+                                }else{
+                                    errorToast("Please Validate Your Email Before Connecting")
+                                }
                             } else {
                                 errorToast("Wrong Password !")
                             }
@@ -107,8 +131,12 @@ const Auth = () => {
                         const userInDB = await getUserViaPseudonym(authInfo);
                         if (!userInDB.isEmpty) {
                             if (password === userInDB.password) {
-                                setUser(userInDB._id, userInDB.pseudonym, userInDB.password);
-                                navigate("/");
+                                if (userInDB.status_id !== 0){
+                                    setUser(userInDB._id, userInDB.pseudonym, userInDB.password);
+                                    navigate("/");
+                                }else{
+                                    errorToast("Please Validate Your Email Before Connecting")
+                                }
                             } else {
                                 errorToast("Wrong Password !")
                             }
@@ -145,7 +173,7 @@ const Auth = () => {
                                     <h1 className="title-form">Sign in</h1>
                                     <input className="form-lr-input" type="text" placeholder="Pseudonym Or Email"/>
                                     <input className="form-lr-input" type="password" placeholder="Password"/>
-                                    <a className="link-form" href="#">Forgot your password?</a>
+                                    <NavLink className="link-form" to="/forget">Forgot your password?</NavLink>
                                     <button className="form-btn">Sign In</button>
                                 </form>
                             </div>

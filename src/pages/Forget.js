@@ -5,6 +5,8 @@ import Navigations from "../components/Navigations";
 import {Button, Container, Form} from "react-bootstrap";
 import {getUserViaEmail} from "../Managers/M_Users";
 import {toast, ToastContainer} from "react-toastify";
+import emailjs from "@emailjs/browser";
+import {useNavigate} from "react-router-dom";
 
 const validateEmail = (email) => {
     return email.match(
@@ -13,6 +15,7 @@ const validateEmail = (email) => {
 };
 
 const Forget = () => {
+    const navigate = useNavigate();
     const [navID, setNavID] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -46,21 +49,33 @@ const Forget = () => {
         if (validateEmail(email)) {
             const userInDB = await getUserViaEmail(email);
             if (!userInDB.isEmpty) {
-                toast.info("Send an reset email to : " + email, {
-                    position: "top-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
+                emailjs.send('service_fssxtol', 'template_ycuu7tj', {
+                    to_name: userInDB.pseudonym,
+                    link: "https://azonar.fr/rpw/" + userInDB._id + "/" + userInDB.token + "/" + userInDB.pseudonym,
+                    user_email: userInDB.email,
+                }, 'r6FdVXupbGUorznSl')
+                    .then((result) => {
+                        toast.info("Send an reset email to : " + userInDB.email, {
+                            position: "top-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                        });
+                        setTimeout(() => {
+                            navigate("/");
+                        }, 5000)
+                    }).catch((error) => {
+                    errorToast(error.text);
                 });
-                //TODO Send Mail
+                console.log("ok")
             } else {
                 errorToast("User Doesn't Exist !")
             }
         } else {
-            errorToast(email + " is not valid !");
+            errorToast("Email is not valid !");
         }
     }
 
