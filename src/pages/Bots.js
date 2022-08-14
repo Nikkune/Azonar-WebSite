@@ -5,6 +5,7 @@ import {Container, Row} from "react-bootstrap";
 import {getNavId} from "../Managers/M_Navigations";
 import BotCard from "../components/BotCard";
 import {getBots} from "../Managers/M_Bots";
+import NavigationsSM from "../components/NavigationsSM";
 
 const Bots = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -34,6 +35,7 @@ const Bots = () => {
 
     return (
         <div>
+            <NavigationsSM type={navID}/>
             <Navigations type={navID}/>
             <div className="home">
                 <h1>Bots</h1>

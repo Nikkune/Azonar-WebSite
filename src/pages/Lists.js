@@ -11,6 +11,7 @@ import {getUserViaPseudonym} from "../Managers/M_Users";
 import Error404 from "./Error404";
 import {Container, Nav, Table} from "react-bootstrap";
 import ULTableRow from "../components/ULTableRow";
+import NavigationsSM from "../components/NavigationsSM";
 
 const Lists = () => {
     const navigate = useNavigate();
@@ -61,7 +62,7 @@ const Lists = () => {
                 setHasFailed(true)
             });
         }
-    }, [])
+    }, [navigate, pseudonym])
 
     if (isLoading) {
         return <Loader/>
@@ -71,7 +72,7 @@ const Lists = () => {
         return <Error404/>
     }
 
-    let aff = pseudonym;
+    let aff = pseudonym + " has";
     if (isLogged() === "true")
         if (getPseudonym() === pseudonym)
             aff = "You have"
@@ -100,6 +101,8 @@ const Lists = () => {
             break;
         case 5:
             statu = "all manga";
+            break;
+        default:
             break;
     }
 
@@ -140,6 +143,7 @@ const Lists = () => {
     if (userList.length === 0) {
         return (
             <div>
+                <NavigationsSM type={navID}/>
                 <Navigations type={navID}/>
                 <div className="home">
                     <h1>Lists</h1>
@@ -147,7 +151,7 @@ const Lists = () => {
                         color: "var(--text-color)",
                         backgroundColor: "var(--sidebar-color)"
                     }}>
-                        <h4>{"No manga in " + aff + "'s list !"}</h4>
+                        <h4>{aff + " no manga in the list !"}</h4>
                     </Container>
                 </div>
             </div>
@@ -156,6 +160,7 @@ const Lists = () => {
 
     return (
         <div>
+            <NavigationsSM type={navID}/>
             <Navigations type={navID}/>
             <div className="home">
                 <h1>Lists</h1>

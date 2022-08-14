@@ -7,6 +7,7 @@ import {getUserViaEmail} from "../Managers/M_Users";
 import {toast, ToastContainer} from "react-toastify";
 import emailjs from "@emailjs/browser";
 import {useNavigate} from "react-router-dom";
+import NavigationsSM from "../components/NavigationsSM";
 
 const validateEmail = (email) => {
     return email.match(
@@ -24,7 +25,7 @@ const Forget = () => {
             setNavID(res)
             setIsLoading(false);
         })
-    })
+    }, [])
 
     if (isLoading) {
         return <Loader/>
@@ -81,6 +82,7 @@ const Forget = () => {
 
     return (
         <div>
+            <NavigationsSM type={navID}/>
             <Navigations type={navID}/>
             <div className="home">
                 <ToastContainer/>

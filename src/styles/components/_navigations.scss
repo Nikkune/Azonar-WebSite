@@ -283,3 +283,63 @@ body.dark .switch::before {
 body.dark .home .text {
   color: var(--text-color);
 }
+
+.navig {
+  display: none;
+}
+
+@media (max-width: 992px) {
+  .sidebar {
+    display: none;
+  }
+
+  .navbar-nav a{
+    text-decoration: none;
+    color: var(--text-color);
+  }
+
+  .navbar-nav a i{
+    margin-right: 8px;
+  }
+
+  .navig {
+    display: block;
+
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1030;
+  }
+
+  .navig li {
+    list-style: none;
+  }
+
+  .navig li a.active{
+    text-decoration: none;
+    color: var(--secondary-color);
+  }
+
+  .navig li a{
+    text-decoration: none;
+    color: var(--text-color);
+  }
+
+  .navig li a i{
+    margin-left: 1rem;
+    margin-right: 8px;
+  }
+
+  .home {
+    left: 0;
+    width: 100%;
+    padding-bottom: 70px;
+  }
+
+  .sidebar.close ~ .home {
+    left: 0;
+    min-height: calc(100% - 2rem);
+    width: 100%;
+  }
+}

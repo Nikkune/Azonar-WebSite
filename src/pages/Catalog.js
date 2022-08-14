@@ -5,6 +5,7 @@ import {Col, Container, Form, PageItem, Pagination, Row, Stack} from "react-boot
 import MangaCard from "../components/MangaCard";
 import {getNavId} from "../Managers/M_Navigations";
 import {getMangas} from "../Managers/M_Mangas";
+import NavigationsSM from "../components/NavigationsSM";
 
 const Catalog = () => {
         const [isLoading, setIsLoading] = useState(true);
@@ -277,11 +278,12 @@ const Catalog = () => {
 
         return (
             <div>
+                <NavigationsSM type={navID}/>
                 <Navigations type={navID}/>
                 <div className="home">
-                    <h1>Catalog</h1>
+                    <h1>Library</h1>
                     <Container className="text-center">
-                        <h3><i className="fa-duotone fa-hourglass-clock"/> Dernières Mise À Jour</h3>
+                        <h3><i className="fa-duotone fa-hourglass-clock"/> Last Updates</h3>
                         <Row xs={1} lg={3} className="justify-content-center">
                             {
                                 mangas.sort((a, b) => new Date(b.last_update) - new Date(a.last_update)).slice(0, 6).map((manga) =>
@@ -289,7 +291,7 @@ const Catalog = () => {
                             }
                         </Row>
                         <hr ref={shelves}/>
-                        <h3><i className="fa-duotone fa-shelves"/> Etagere</h3>
+                        <h3><i className="fa-duotone fa-shelves"/> Shelf</h3>
                         <Form.Group className="mb-3" controlId="searchForm">
                             <Form.Label>Search</Form.Label>
                             <Form.Control type="text" onChange={handleSearch} value={search} placeholder="Search..."/>

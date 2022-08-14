@@ -1,23 +1,29 @@
 import React from 'react';
-import {NavLink} from "react-router-dom";
+import {Button, Container, Nav, Navbar} from "react-bootstrap";
 import {NAV_ADMIN, NAV_DEFAULT, NAV_LOGGED} from "../Managers/M_Navigations";
 import NavigationsItem from "./NavigationsItem";
 import {getPseudonym, isLogged} from "../Managers/M_Sessions";
+import {NavLink} from "react-router-dom";
 
-const Navigations = ({type}) => {
+const NavigationsSM = ({type}) => {
+    const mode = document.querySelector("body").classList.contains("dark");
+
     function toggleBody() {
         const body = document.querySelector("body");
-        const modeText = document.querySelector(".mode-text");
+        const modeText = document.querySelector("#tgl-btn");
         const toggle = body.classList.toggle("dark");
-        if (toggle)
-            modeText.textContent = "Light Mode"
-        else
-            modeText.textContent = "Dark Mode"
-    }
+        const navbar = document.querySelector("#navbar");
 
-    function toggleSidebar() {
-        const sidebar = document.querySelector(".sidebar");
-        sidebar.classList.toggle("close");
+        if (toggle){
+            modeText.textContent = "Light Mode"
+            navbar.classList.remove("bg-light");
+            navbar.classList.add("bg-dark");
+        }
+        else{
+            modeText.textContent = "Dark Mode"
+            navbar.classList.add("bg-light");
+            navbar.classList.remove("bg-dark");
+        }
     }
 
     function getNavigationItems() {
@@ -84,50 +90,29 @@ const Navigations = ({type}) => {
         }
     }
 
-
     return (
-        <nav className="sidebar close">
-            <header>
-                <div className="image-text">
-                    <span className="image">
-                        <img src="/logo.png" alt="Azonar"/>
-                    </span>
-
-                    <div className="text header-text">
-                        <span className="name">Azonar</span>
-                    </div>
-                </div>
-
-                <i className="fa-light fa-angle-right toggle" onClick={toggleSidebar}/>
-            </header>
-            <div className="menu-bar">
-                <div className="menu">
-                    {
-                        getNavigationItems()
-                    }
-                </div>
-                <div className="bottom-content">
-                    <li className="">
+        <Navbar collapseOnSelect expand="sm" bg={mode ? "dark" : "light"} className="navig fixed-bottom" id="navbar" variant="dark">
+            <Container>
+                <NavLink to="/" className="text-decoration-none" style={{color: "var(--text-color)"}}><h3>Azonar</h3></NavLink>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" style={{backgroundColor: "var(--quinary-color)"}}/>
+                <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="me-auto">
+                        {
+                            getNavigationItems()
+                        }
+                    </Nav>
+                    <Nav>
                         {
                             getLogBTN()
                         }
-                    </li>
-
-                    <li className="mode">
-                        <div className="sun-moon">
-                            <i className="fa-duotone fa-moon-stars icon moon"/>
-                            <i className="fa-duotone fa-sun-bright icon sun"/>
-                        </div>
-                        <span className="mode-text text">Dark Mode</span>
-                        <div className="toggle-switch" id="btn-dark-mode" onClick={toggleBody}>
-                            <span className="switch">
-                            </span>
-                        </div>
-                    </li>
-                </div>
-            </div>
-        </nav>
+                    </Nav>
+                    <Nav className="mt-3">
+                        <Button variant="outline-secondary" id="tgl-btn" onClick={toggleBody}>Light Mode</Button>
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
     );
 };
 
-export default Navigations;
+export default NavigationsSM;

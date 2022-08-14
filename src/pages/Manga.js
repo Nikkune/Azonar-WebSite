@@ -12,6 +12,7 @@ import Error404 from "./Error404";
 import {getID, isLogged} from "../Managers/M_Sessions";
 import {addMangaToUserList, getMangaIDListOfUserList} from "../Managers/M_List";
 import {toast, ToastContainer} from "react-toastify";
+import NavigationsSM from "../components/NavigationsSM";
 
 const Manga = () => {
     const navigate = useNavigate();
@@ -51,7 +52,7 @@ const Manga = () => {
             })
         }
 
-    }, [])
+    }, [ID, navigate])
 
     if (isLoading) {
         return <Loader/>
@@ -124,6 +125,7 @@ const Manga = () => {
 
     return (
         <div>
+            <NavigationsSM type={navID}/>
             <Navigations type={navID}/>
             <div className="home">
                 <Container>

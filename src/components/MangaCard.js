@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Card, Col, Form, Image, Modal, Row, Spinner} from "react-bootstrap";
+import {Button, Card, Col, Form, Image, Modal, Row} from "react-bootstrap";
 import {NavLink} from "react-router-dom";
 import {getID, isLogged} from "../Managers/M_Sessions";
 import {toast, ToastContainer} from "react-toastify";
@@ -7,7 +7,6 @@ import {addMangaToUserList, getMangaIDListOfUserList} from "../Managers/M_List";
 
 const MangaCard = ({manga}) => {
     const [show, setShow] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
 
     const [statusID, setStatusID] = useState(0);
     const [currentChapter, setCurrentChapter] = useState("");
@@ -28,7 +27,6 @@ const MangaCard = ({manga}) => {
     if (isLogged() === "true") {
         getMangaIDListOfUserList(getID()).then((mga) => {
             setMangaInList(mga);
-            setIsLoading(false);
         })
     }
 
@@ -101,7 +99,7 @@ const MangaCard = ({manga}) => {
                                 <Card.Title>{name}</Card.Title>
                                 <p>Last Update : {date}</p>
                                 {
-                                    isLoading ? <Spinner animation="border" variant="primary"/> : btns.map((btn) =>
+                                    btns.map((btn) =>
                                         <Button key={btn.toLowerCase().split(" ").join("")} className="w-100" onClick={handleQuickAdd} variant="outline-secondary"><i className="fa-duotone fa-circle-plus"/> {btn}
                                         </Button>)
                                 }

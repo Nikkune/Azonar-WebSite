@@ -7,6 +7,7 @@ import {getUserViaPseudonym, updatePassword} from "../Managers/M_Users";
 import {toast, ToastContainer} from "react-toastify";
 import Navigations from "../components/Navigations";
 import {getNavId} from "../Managers/M_Navigations";
+import NavigationsSM from "../components/NavigationsSM";
 
 const sha1 = require('sha1');
 
@@ -68,6 +69,7 @@ const ResetPassWord = () => {
 
     return (
         <div>
+            <NavigationsSM type={navID}/>
             <Navigations type={navID}/>
             <div className="home">
                 <ToastContainer/>

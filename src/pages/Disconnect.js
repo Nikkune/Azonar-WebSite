@@ -13,7 +13,7 @@ const Disconnect = () => {
             deleteUser();
             navigate("/");
         }
-    })
+    }, [navigate])
 
     return (
         <Loader/>

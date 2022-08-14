@@ -9,6 +9,7 @@ import {getID, getPseudonym, isLogged} from "../Managers/M_Sessions";
 import {getUserList} from "../Managers/M_List";
 import ULTableRow from "../components/ULTableRow";
 import {Table} from "react-bootstrap";
+import NavigationsSM from "../components/NavigationsSM";
 
 const News = () => {
     const navigate = useNavigate();
@@ -33,7 +34,7 @@ const News = () => {
                 })
             } else navigate("/")
         } else navigate("/")
-    }, [])
+    }, [navigate, pseudonym])
 
     function reloadUL() {
         if (isLogged() === "true") {
@@ -51,6 +52,7 @@ const News = () => {
 
     return (
         <div>
+            <NavigationsSM type={navID}/>
             <Navigations type={navID}/>
             <div className="home">
                 <h1>News</h1>

@@ -8,6 +8,7 @@ import {creatUser, getUserViaEmail, getUserViaPseudonym} from "../Managers/M_Use
 import {isLogged, setUser} from "../Managers/M_Sessions";
 import {getNavId} from "../Managers/M_Navigations";
 import emailjs from '@emailjs/browser';
+import NavigationsSM from "../components/NavigationsSM";
 
 const validateEmail = (email) => {
     return email.match(
@@ -53,7 +54,7 @@ const Auth = () => {
             getNavId().then((res) => {
                 setNavID(res)
             })
-        }, []);
+        }, [navigate]);
 
         function handleSignUp(event) {
             event.preventDefault(true);
@@ -154,6 +155,7 @@ const Auth = () => {
 
         return (
             <div>
+                <NavigationsSM type={navID}/>
                 <Navigations type={navID}/>
                 <div className="home">
                     <ToastContainer/>

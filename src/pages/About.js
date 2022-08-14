@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Navigations from "../components/Navigations";
 import {getNavId} from "../Managers/M_Navigations";
 import Loader from "../components/Loader";
+import NavigationsSM from "../components/NavigationsSM";
 
 const About = () => {
     const [navID, setNavID] = useState(1);
@@ -12,7 +13,7 @@ const About = () => {
             setNavID(res)
             setIsLoading(false);
         })
-    })
+    }, [])
 
     if (isLoading) {
         return <Loader/>
@@ -20,6 +21,7 @@ const About = () => {
 
     return (
         <div>
+            <NavigationsSM type={navID}/>
             <Navigations type={navID}/>
             <div className="home">
                 <h1>About</h1>

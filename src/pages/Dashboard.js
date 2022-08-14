@@ -6,17 +6,19 @@ import Widget from "../components/Widget";
 import Featured from "../components/Featured";
 import Chart from "../components/Chart";
 import LTable from "../components/LTable";
+import NavigationsSM from "../components/NavigationsSM";
 
 const Dashboard = () => {
     const [navID, setNavID] = useState(1);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true)
+
 
     useEffect(() => {
         getNavId().then((res) => {
             setNavID(res);
             setIsLoading(false);
         })
-    })
+    }, [])
 
     if (isLoading) {
         return <Loader/>
@@ -24,6 +26,7 @@ const Dashboard = () => {
 
     return (
         <div>
+            <NavigationsSM type={navID}/>
             <Navigations type={navID}/>
             <div className="home">
                 <div className="widgets">
@@ -35,8 +38,8 @@ const Dashboard = () => {
                     <Featured/>
                     <Chart/>
                 </div>
-                <div className="l-container shadow">
-                    <div className="l-title">Latest Transactions</div>
+                <div className="l-container d-none d-lg-block shadow">
+                    <div className="l-title">Latest Mangas</div>
                     <LTable/>
                 </div>
             </div>
