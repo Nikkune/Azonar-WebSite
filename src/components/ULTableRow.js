@@ -52,7 +52,7 @@ const ULTableRow = ({
             !isNaN(parseFloat(str))
     }
 
-    function errorToast(error) {
+    function errorToast(error, toastID) {
         toast.error(error, {
             position: "top-center",
             autoClose: 5000,
@@ -61,10 +61,11 @@ const ULTableRow = ({
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
+            toastId : toastID
         });
     }
 
-    function successToast(msg) {
+    function successToast(msg, toastID) {
         toast.success(msg, {
             position: "top-center",
             autoClose: 5000,
@@ -73,6 +74,7 @@ const ULTableRow = ({
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
+            toastId : toastID
         });
     }
 
@@ -81,7 +83,7 @@ const ULTableRow = ({
         deleteMangaFromUserList(list_id).then((res) => {
             handleClose();
             reload();
-            successToast("Successfully delete : " + res.manga_name + " from list !");
+            successToast("Successfully delete : " + res.manga_name + " from list !",res._id);
         });
     }
 
@@ -91,20 +93,20 @@ const ULTableRow = ({
         if (isNumeric(currentChapter.toString())) {
             if (currentChapter !== current) {
                 updateChapter(getID(), manga_id, currentChapter).then((res) => {
-                    successToast("Successfully update : " + res.manga_name + " current chapter to " + currentChapter + " !");
+                    successToast("Successfully update : " + res.manga_name + " current chapter to " + currentChapter + " !",res._id);
                     handleClose();
                     reload();
                 })
             }
             if (statusID.toString() !== status.toString()) {
                 updateStatus(getID(), manga_id, statusID).then((res) => {
-                    successToast("Successfully update : " + res.manga_name + " status to " + statusID + " !");
+                    successToast("Successfully update : " + res.manga_name + " status to " + statusID + " !",res._id);
                     handleClose();
                     reload();
                 })
             }
         } else {
-            errorToast(currentChapter + " isn't a number ! Example : 8 OR 8.1");
+            errorToast(currentChapter + " isn't a number ! Example : 8 OR 8.1","0189410e0e48f");
         }
     }
 
@@ -233,7 +235,9 @@ const ULTableRow = ({
                         <Button onClick={handleSubmitC} variant="danger">Yes</Button>
                     </Modal.Footer>
                 </Modal>
-                <ToastContainer/>
+                <ToastContainer
+                    theme="colored"
+                />
             </td>
         </tr>
     );

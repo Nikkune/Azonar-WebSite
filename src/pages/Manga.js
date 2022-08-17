@@ -79,7 +79,7 @@ const Manga = () => {
             !isNaN(parseFloat(str))
     }
 
-    function errorToast(error) {
+    function errorToast(error, toastID) {
         toast.error(error, {
             position: "top-center",
             autoClose: 5000,
@@ -88,10 +88,11 @@ const Manga = () => {
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
+            toastId : toastID
         });
     }
 
-    function successToast(msg) {
+    function successToast(msg,toastID) {
         toast.success(msg, {
             position: "top-center",
             autoClose: 5000,
@@ -100,6 +101,7 @@ const Manga = () => {
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
+            toastId : toastID
         });
     }
 
@@ -108,13 +110,13 @@ const Manga = () => {
         if (isNumeric(currentChapter)) {
             addMangaToUserList(getID(), manga._id, currentChapter, statusID).then((res) => {
                 handleClose();
-                successToast("Successfully add : " + res.manga_name + " to your list !");
+                successToast("Successfully add : " + res.manga_name + " to your list !",res._id);
             }).catch((err) => {
                 handleClose();
                 errorToast("An Error as occurred : " + err);
             });
         } else {
-            errorToast(currentChapter + " isn't a number ! Example : 8 OR 8.1");
+            errorToast(currentChapter + " isn't a number ! Example : 8 OR 8.1","0189410e0e48f");
         }
     }
 
@@ -224,7 +226,9 @@ const Manga = () => {
                     <Button onClick={handleSubmit} variant="primary">Add</Button>
                 </Modal.Footer>
             </Modal>
-            <ToastContainer/>
+            <ToastContainer
+                theme="colored"
+            />
         </div>
     );
 };

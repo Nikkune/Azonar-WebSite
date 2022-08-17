@@ -203,7 +203,15 @@ const Lists = () => {
                                 </thead>
                                 <tbody>
                                 {
-                                    userList.filter(manga => statusSelect !== 5 ? manga.status_id === statusSelect : true).map((manga) =>
+                                    userList.filter(manga => statusSelect !== 5 ? manga.status_id === statusSelect : true).sort((a, b) => {
+                                        if (a.manga_name.replace(/[^\w\s]/gi, '') < b.manga_name.replace(/[^\w\s]/gi, '')) {
+                                            return -1;
+                                        }
+                                        if (a.manga_name.replace(/[^\w\s]/gi, '') > b.manga_name.replace(/[^\w\s]/gi, '')) {
+                                            return 1;
+                                        }
+                                        return 0;
+                                    }).map((manga) =>
                                         <ULTableRow key={manga._id} list_id={manga._id} current_chapter_link={manga.current_chapter_link} news={false} manga_id={manga.manga_id} manga_name={manga.manga_name} last_update={manga.last_update} current={manga.current_chapter} status={manga.status_id} reload={reloadUL}/>)
                                 }
                                 </tbody>
