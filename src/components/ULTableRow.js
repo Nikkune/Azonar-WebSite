@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
-import {Button, Col, Form, Modal, Row} from "react-bootstrap";
+import React, {useEffect, useState} from 'react';
+import {Button, Col, Form, Image, Modal, Row} from "react-bootstrap";
 import {toast, ToastContainer} from "react-toastify";
 import {deleteMangaFromUserList, updateChapter, updateStatus} from "../Managers/M_List";
 import {getID} from "../Managers/M_Sessions";
 import {NavLink} from "react-router-dom";
+import {getMangaViaID} from "../Managers/M_Mangas";
 
 const ULTableRow = ({
                         list_id,
@@ -23,9 +24,19 @@ const ULTableRow = ({
     const [showC, setShowC] = useState(false);
     const [statusID, setStatusID] = useState(status);
     const [currentChapter, setCurrentChapter] = useState(current);
+    const [manga, setManga] = useState({});
+
+    useEffect(() => {
+        getMangaViaID(manga_id).then((res) => {
+            setManga(res);
+        })
+    }, [manga_id])
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = (event) => {
+        event.preventDefault(true)
+        setShow(true)
+    };
     const handleCloseC = () => setShowC(false);
     const handleShowC = () => setShowC(true);
 
@@ -81,14 +92,17 @@ const ULTableRow = ({
             if (currentChapter !== current) {
                 updateChapter(getID(), manga_id, currentChapter).then((res) => {
                     successToast("Successfully update : " + res.manga_name + " current chapter to " + currentChapter + " !");
+                    handleClose();
+                    reload();
                 })
             }
             if (statusID.toString() !== status.toString()) {
                 updateStatus(getID(), manga_id, statusID).then((res) => {
                     successToast("Successfully update : " + res.manga_name + " status to " + statusID + " !");
+                    handleClose();
+                    reload();
                 })
             }
-            handleClose();
         } else {
             errorToast(currentChapter + " isn't a number ! Example : 8 OR 8.1");
         }
@@ -114,6 +128,11 @@ const ULTableRow = ({
     } else {
         btns = [
             {
+                text: "Edit",
+                icon: "pen-to-square",
+                action: handleShow,
+                href: null
+            }, {
                 text: "Continuer",
                 icon: "arrow-up-right-from-square",
                 action: null,
@@ -124,6 +143,9 @@ const ULTableRow = ({
 
     return (
         <tr>
+            <td>
+                <Image fluid src={manga.cover_link} style={{height: 70+"px"}}/>
+            </td>
             <td>
                 <NavLink to={"/manga/" + manga_id} className="text-decoration-none" style={{color: "var(--text-color)"}}>{manga_name}</NavLink>
             </td>
@@ -141,10 +163,12 @@ const ULTableRow = ({
                     backdrop="static"
                     keyboard={false}
                 >
-                    <Modal.Header closeButton>
+                    <Modal.Header closeButton
+                                  style={{backgroundColor: "var(--sidebar-color"}}>
                         <Modal.Title>{manga_name}</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>
+                    <Modal.Body
+                        style={{backgroundColor: "var(--sidebar-color"}}>
                         <Form onSubmit={event => event.preventDefault()}>
                             <Row className="d-flex flex-row mb-3">
                                 <Col>
@@ -165,19 +189,25 @@ const ULTableRow = ({
                                 <Col>
                                     Current Chapter :
                                 </Col>
-                                <Col>
+                                <Col className="d-flex">
                                     <Form.Control size="sm" type="text" value={currentChapter.toString()} onChange={event => {
                                         setCurrentChapter(event.target.value)
                                     }}/>
+                                    <div className="ms-2">
+                                        {
+                                            "/" + manga.chapter_number
+                                        }
+                                    </div>
                                 </Col>
                             </Row>
                         </Form>
                     </Modal.Body>
-                    <Modal.Footer>
+                    <Modal.Footer
+                        style={{backgroundColor: "var(--sidebar-color"}}>
                         <Button variant="secondary" onClick={handleClose}>
                             Close
                         </Button>
-                        <Button onClick={handleSubmit} variant="primary">Add</Button>
+                        <Button onClick={handleSubmit} variant="primary">Save</Button>
                     </Modal.Footer>
                 </Modal>
 
@@ -187,13 +217,16 @@ const ULTableRow = ({
                     backdrop="static"
                     keyboard={false}
                 >
-                    <Modal.Header>
+                    <Modal.Header
+                        style={{backgroundColor: "var(--sidebar-color"}}>
                         <Modal.Title>{manga_name}</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>
+                    <Modal.Body
+                        style={{backgroundColor: "var(--sidebar-color"}}>
                         <h5>You are sure you want to delete this manga !</h5>
                     </Modal.Body>
-                    <Modal.Footer>
+                    <Modal.Footer
+                        style={{backgroundColor: "var(--sidebar-color"}}>
                         <Button variant="secondary" onClick={handleCloseC}>
                             No
                         </Button>

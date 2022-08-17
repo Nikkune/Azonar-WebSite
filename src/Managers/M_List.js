@@ -23,7 +23,7 @@ export async function addMangaToUserList(user_id, manga_id, current_chapter, sta
     let is_read;
     let manga = await getMangaViaID(manga_id);
 
-    if (manga.site_id.toString() === "1") current_link = manga.site_link + current_chapter + "/"
+    if (manga.site_id.toString() === "1") current_link = "https://www.japscan.me/lecture-en-ligne/" + manga.site_link.split("/")[4] + "/" + current_chapter + "/"
     else if (manga.site_id.toString() === "2") current_link = manga.site_link + "chapitre-" + current_chapter + "/"
 
     is_read = status_id.toString() === "1" || current_chapter.toString() === manga.chapter_number.toString();
@@ -47,7 +47,7 @@ export async function updateChapter(user_id, manga_id, current_chapter) {
     let current_link;
     let manga = await getMangaViaID(manga_id);
 
-    if (manga.site_id.toString() === "1") current_link = manga.site_link + current_chapter + "/"
+    if (manga.site_id.toString() === "1") current_link = "https://www.japscan.me/lecture-en-ligne/" + manga.site_link.split('/')[4] + "/" + current_chapter + "/"
     else if (manga.site_id.toString() === "2") current_link = manga.site_link + "chapitre-" + current_chapter + "/"
 
     const is_read = current_chapter.toString() === manga.chapter_number.toString();

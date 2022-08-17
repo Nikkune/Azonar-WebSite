@@ -61,6 +61,7 @@ const News = () => {
                         <Table striped className="table-light" variant="perso" bordered hover>
                             <thead>
                             <tr>
+                                <th>Images</th>
                                 <th>Name</th>
                                 <th>Current Chapter</th>
                                 <th>Last Update</th>
@@ -69,7 +70,15 @@ const News = () => {
                             </thead>
                             <tbody>
                             {
-                                userList.map((manga) =>
+                                userList.filter(manga => manga.status_id === 0).sort((a, b) => {
+                                    if (a.manga_name.replace(/[^\w\s]/gi, '') < b.manga_name.replace(/[^\w\s]/gi, '')) {
+                                        return -1;
+                                    }
+                                    if (a.manga_name.replace(/[^\w\s]/gi, '') > b.manga_name.replace(/[^\w\s]/gi, '')) {
+                                        return 1;
+                                    }
+                                    return 0;
+                                }).map((manga) =>
                                     <ULTableRow key={manga._id} list_id={manga._id} manga_id={manga.manga_id} manga_name={manga.manga_name} last_update={manga.last_update} current={manga.current_chapter} status={manga.status_id} current_chapter_link={manga.current_chapter_link} reload={reloadUL} news={true}/>)
                             }
                             </tbody>

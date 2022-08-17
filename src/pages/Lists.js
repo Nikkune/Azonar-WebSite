@@ -194,6 +194,7 @@ const Lists = () => {
                             <Table striped className="table-light" variant="perso" bordered hover>
                                 <thead>
                                 <tr>
+                                    <th>Images</th>
                                     <th>Name</th>
                                     <th>Current Chapter</th>
                                     <th>Last Update</th>
