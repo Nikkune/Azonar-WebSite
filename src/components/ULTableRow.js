@@ -15,7 +15,8 @@ const ULTableRow = ({
                         last_update,
                         current_chapter_link,
                         reload,
-                        news
+                        news,
+                        isUser
                     }) => {
     if (news === undefined)
         news = false;
@@ -135,7 +136,7 @@ const ULTableRow = ({
                 action: handleShow,
                 href: null
             }, {
-                text: "Continuer",
+                text: "Continue",
                 icon: "arrow-up-right-from-square",
                 action: null,
                 href: current_chapter_link
@@ -145,18 +146,19 @@ const ULTableRow = ({
 
     return (
         <tr>
-            <td>
+            <td className="text-center">
                 <Image fluid src={manga.cover_link} style={{height: 70+"px"}}/>
             </td>
-            <td>
-                <NavLink to={"/manga/" + manga_id} className="text-decoration-none" style={{color: "var(--text-color)"}}>{manga_name}</NavLink>
+            <td className="text-center">
+                <NavLink to={"/manga/" + manga_id} className="text-decoration-none" style={{color: "var(--text-color)", wordWrap: "break-word"}}>{manga_name}</NavLink>
             </td>
-            <td>{current}</td>
-            <td>{date}</td>
-            <td>
+            <td className="text-center">{current} / {manga.chapter_number}</td>
+            <td className="text-center">{date}</td>
+            {isUser ?
+                <td key={manga_id + " Action"} className="text-center">
                 {
                     btns.map((btn) =>
-                        <Button variant="perso" className="me-3" onClick={btn.action !== null ? btn.action : null} href={btn.href !== null ? btn.href : "#"} target={btn.href !== null ? "_blank" : "_self"}><i className={"fa-duotone fa-" + btn.icon}/> {btn.text}
+                        <Button variant="perso" className="me-3" size="sm" onClick={btn.action !== null ? btn.action : null} href={btn.href !== null ? btn.href : "#"} target={btn.href !== null ? "_blank" : "_self"}><i className={"fa-duotone fa-" + btn.icon}/> {btn.text}
                         </Button>)
                 }
                 <Modal
@@ -239,6 +241,7 @@ const ULTableRow = ({
                     theme="colored"
                 />
             </td>
+            :""}
         </tr>
     );
 };

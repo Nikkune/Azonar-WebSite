@@ -191,14 +191,18 @@ const Lists = () => {
                     {
                         userList.filter(manga => statusSelect !== 5 ? manga.status_id === statusSelect : true).length === 0 ?
                             <h3>{aff + " no " + statu + " manga in the list !"}</h3> :
-                            <Table striped className="table-light" variant="perso" bordered hover>
+                            <Table striped className="table-light" size="sm" variant="perso" bordered hover>
                                 <thead>
                                 <tr>
-                                    <th>Images</th>
-                                    <th>Name</th>
-                                    <th>Current Chapter</th>
-                                    <th>Last Update</th>
-                                    <th>Action</th>
+                                    <th className="text-center">Images</th>
+                                    <th className="text-center">Name</th>
+                                    <th className="text-center">Current Chapter</th>
+                                    <th className="text-center">Last Update</th>
+                                    {
+                                        getPseudonym() === pseudonym ?
+                                        <th className="text-center">Action</th>
+                                        : ""
+                                    }
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -212,7 +216,7 @@ const Lists = () => {
                                         }
                                         return 0;
                                     }).map((manga) =>
-                                        <ULTableRow key={manga._id} list_id={manga._id} current_chapter_link={manga.current_chapter_link} news={false} manga_id={manga.manga_id} manga_name={manga.manga_name} last_update={manga.last_update} current={manga.current_chapter} status={manga.status_id} reload={reloadUL}/>)
+                                        <ULTableRow key={manga._id} list_id={manga._id} current_chapter_link={manga.current_chapter_link} news={false} manga_id={manga.manga_id} manga_name={manga.manga_name} last_update={manga.last_update} current={manga.current_chapter} status={manga.status_id} reload={reloadUL} isUser={getPseudonym() === pseudonym}/>)
                                 }
                                 </tbody>
                             </Table>

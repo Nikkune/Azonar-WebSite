@@ -58,14 +58,14 @@ const News = () => {
                 <h1>News</h1>
                 {
                     userList.length === 0 ? <h3>No new chapters in your list</h3> :
-                        <Table striped className="table-light" variant="perso" bordered hover>
+                        <Table striped className="table-light" size="sm" variant="perso" bordered hover>
                             <thead>
                             <tr>
-                                <th>Images</th>
-                                <th>Name</th>
-                                <th>Current Chapter</th>
-                                <th>Last Update</th>
-                                <th>Action</th>
+                                <th className="text-center">Images</th>
+                                <th className="text-center">Name</th>
+                                <th className="text-center">Current Chapter</th>
+                                <th className="text-center">Last Update</th>
+                                <th className="text-center">Action</th>
                             </tr>
                             </thead>
                             <tbody>

@@ -151,7 +151,10 @@ const Catalog = () => {
         }
 
         function handelChange(event) {
-            setTargetPage(event.target.value)
+            let target = event.target.value;
+            if (target <= 0) target = 1;
+            if (target >> lastPage) target = lastPage;
+            setTargetPage(target)
         }
 
         function handelSubmit() {
@@ -184,7 +187,7 @@ const Catalog = () => {
         }
 
         function handleSearch(event) {
-            const searchTerm = event.target.value;
+            const searchTerm = event.target.value.toLowerCase();
             const btnNone = document.getElementById("btnNone");
             if (!btnNone.classList.contains("d-none"))
                 btnNone.classList.add("d-none");
@@ -195,7 +198,9 @@ const Catalog = () => {
                     filteredManga.push(manga)
             }
             setMangasFiltered(filteredManga);
-            setLastPage(Math.ceil(filteredManga.length / 12));
+            let last = Math.ceil(filteredManga.length / 12)
+            if (last === 0) last = 1
+            setLastPage(last);
         }
 
 
@@ -352,7 +357,7 @@ const Catalog = () => {
                                 </Pagination>
                             </Col>
                             <Col>
-                                <Form className="d-flex" action="">
+                                <Form className="d-flex" action="" onSubmit={(event) => event.preventDefault(true)}>
                                     <input className="form-control" style={{
                                         backgroundColor: "var(--sidebar-color)",
                                         borderColor: "var(--sidebar-color-light)",

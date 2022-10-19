@@ -70,7 +70,7 @@ const Auth = () => {
                             creatUser(pseudonym, email, password).then((res) => {
                                 emailjs.send('service_fssxtol', 'template_9fwwbgl', {
                                     to_name: res.pseudonym,
-                                    link: "https://azonar.fr/validate/"+ res.token +"/" + res.pseudonym,
+                                    link: "https://www.azonar.fr/validate/"+ res.token +"/" + res.pseudonym,
                                     user_email: res.email,
                                 }, 'r6FdVXupbGUorznSl')
                                     .then((result) => {

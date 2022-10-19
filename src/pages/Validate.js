@@ -40,7 +40,7 @@ const Validate = () => {
                 navigate("/");
             }, 5000)
         })
-    }, [])
+    }, [Pseudonym, Token, navigate])
 
     function errorToast(error) {
         toast.error(error, {

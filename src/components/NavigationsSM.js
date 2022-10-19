@@ -91,7 +91,7 @@ const NavigationsSM = ({type}) => {
     }
 
     return (
-        <Navbar collapseOnSelect expand="sm" bg={mode ? "dark" : "light"} className="navig fixed-bottom" id="navbar" variant="dark">
+        <Navbar collapseOnSelect expand="xl" bg={mode ? "dark" : "light"} className="navig fixed-bottom" id="navbar" variant="dark">
             <Container>
                 <NavLink to="/" className="text-decoration-none" style={{color: "var(--text-color)"}}><h3>Azonar</h3></NavLink>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" style={{backgroundColor: "var(--quinary-color)"}}/>
